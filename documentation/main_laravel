@@ -1,0 +1,46 @@
+##Моя шпаргалка `LARAVEL`
+
+Основная кадировка: utf8mb4_unicode_ci;
+
+
+###_COMPOSER:_
+
+- обновить все пакеты: `composer update`
+
+###_ПАКЕТЫ:_
+#####ide-helper:
+- установка: `composer require --dev barryvdh/laravel-ide-helper`
+- генерация коментариев: `php artisan ide-helper:models Post User`
+#####debugbar:
+- `composer require barryvdh/laravel-debugbar --dev`
+
+###_Консольные команды laravel:_
+- версия laravel: `php artisan -v`
+- показать все маршруты: `php artisan route:list`
+
+- создать контроллер `php artisan make:controller HomeController`
+- cоздать ресурсный контроллер:`php artisan make:controller PhotoController --resource --model=Photo`
+
+####МИГРАЦИИ
+- Создать миграцию и модель: `php artisan make:model Models/BlogCategory -m`
+- Создать миграцию:
+- php artisan make:`migration create_users_table`
+- php artisan make:`migration create_users_table --create=users`
+- php artisan make:`migration add_votes_to_users_table --table=users`
+- Запуск миграции: `php artisan migrate`
+- запуск миграции без потверждения:` php artisan migrate --force`
+- Откатить миграцию: `php artisan migrate:rollback`
+- откатить определенное количество миграций: `php artisan migrate:rollback --step=5`
+- откатит все миграции: `php artisan migrate:reset`
+- Откат и миграция с помощью одной команды: `php artisan migrate:refresh`
+- Бросить все столы и мигрировать: `php artisan migrate:fresh`
+- Рефреш с сидами:  `php artisan migrate: refresh --seed`
+
+- cоздать сервис провайдер: `php artisan make:provider RiakServiceProvider`
+- создать обсервер: php artisan make:observer BlogCategoryObserver --model=Models\BlogCategory
+- Создать миграцию и модель: php artisan make:model Models/BlogCategory -m
+- Миграция в bd: php artisan migrate
+
+####npm
+- компиляция файлов: `npm run watch`
+
