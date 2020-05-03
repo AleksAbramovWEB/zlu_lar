@@ -18,6 +18,14 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <style>
+        body {
+            background: url({{$background}}) no-repeat fixed center center;
+            background-size: cover;
+        }
+
+    </style>
 </head>
 <body>
     <div id="app">
@@ -62,7 +70,9 @@
             </div>
         </header>
         <main class="py-4">
-            @yield('content')
+            <div class="container p-1">
+                @yield('content')
+            </div>
         </main>
     </div>
 </body>

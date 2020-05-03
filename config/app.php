@@ -82,6 +82,7 @@ return [
 
     'locale' => 'en',
 
+    'locales' => ['ru', 'en'],
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale
@@ -93,7 +94,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'ru',
 
     /*
     |--------------------------------------------------------------------------
@@ -174,6 +175,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        // мои провайдеры
+        App\Providers\ZluServiceProvider::class
 
     ],
 

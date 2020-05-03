@@ -153,7 +153,8 @@ return [
     |
     */
 
-    'domain' => env('SESSION_DOMAIN', null),
+    'domain' => '.bdsmzlu.club',
+ //   'domain' => env('SESSION_DOMAIN', null),
 
     /*
     |--------------------------------------------------------------------------

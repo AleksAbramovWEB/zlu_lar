@@ -2,9 +2,10 @@
 
 namespace App\Providers;
 
+use App\Components\BackgroundPicture;
 use Illuminate\Support\ServiceProvider;
 
-class ZluServiseProvider extends ServiceProvider
+class ZluServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -23,6 +24,9 @@ class ZluServiseProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
+        // передаем рандомный фон во все вьюшки
+        \View::share('background', (new BackgroundPicture())->getBg());
+
     }
 }

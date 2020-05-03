@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -11,6 +12,7 @@ class Kernel extends HttpKernel
      *
      * These middleware are run during every request to your application.
      *
+     * для всех
      * @var array
      */
     protected $middleware = [
@@ -24,7 +26,7 @@ class Kernel extends HttpKernel
 
     /**
      * The application's route middleware groups.
-     *
+     * группы для определенного роутера
      * @var array
      */
     protected $middlewareGroups = [
@@ -36,6 +38,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\LangMiddleware::class
         ],
 
         'api' => [
@@ -48,6 +51,8 @@ class Kernel extends HttpKernel
      * The application's route middleware.
      *
      * These middleware may be assigned to groups or used individually.
+     *
+     * псевдонимы для групп
      *
      * @var array
      */

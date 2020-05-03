@@ -18,6 +18,7 @@
 - версия laravel: `php artisan -v`
 - показать все маршруты: `php artisan route:list`
 
+- cоздать посредника `php artisan make:middleware CheckAge`
 - создать контроллер `php artisan make:controller HomeController`
 - cоздать ресурсный контроллер:`php artisan make:controller PhotoController --resource --model=Photo`
 
