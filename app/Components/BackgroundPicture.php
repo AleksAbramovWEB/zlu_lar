@@ -55,7 +55,7 @@
          * выбираем изображение
          */
         private function choiceBg(){
-            $count = count($this->allBg);
+            $count = count($this->allBg) - 1;
             $int = random_int(0,  $count);
             $this->bg = $this->allBg[$int];
 

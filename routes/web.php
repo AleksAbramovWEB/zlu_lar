@@ -12,15 +12,16 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-    function mainGlobalGroup(){
+    $mainGlobalGroup =  function (){
         Route::get('/', 'HomeController@index')->name('home');
         Route::get('/feedback', 'HomeController@feedback')->name('feedback');
-    }
+        Route::post('/feedback', 'HomeController@feedbackSend')->name('feedback.post');
+    };
 
 
-    Route::group(['domain' => '{locale}.bdsmzlu.club'], function (){mainGlobalGroup();});
+    Route::group(['domain' => '{locale}.bdsmzlu.club'], $mainGlobalGroup);
 
-    Route::group(['domain' => 'bdsmzlu.club'], function (){mainGlobalGroup();});
+    Route::group(['domain' => 'bdsmzlu.club'], $mainGlobalGroup);
 
 
     Auth::routes();

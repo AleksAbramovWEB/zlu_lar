@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+
 use App\Components\BackgroundPicture;
 use Illuminate\Support\ServiceProvider;
 
@@ -14,7 +15,10 @@ class ZluServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // регистрируем свой фасад MainHelper
+        \App::bind('MainHelper', function(){
+            return new \App\Components\MainHelper;
+        });
     }
 
     /**
@@ -25,8 +29,10 @@ class ZluServiceProvider extends ServiceProvider
     public function boot()
     {
 
+
         // передаем рандомный фон во все вьюшки
         \View::share('background', (new BackgroundPicture())->getBg());
+
 
     }
 }

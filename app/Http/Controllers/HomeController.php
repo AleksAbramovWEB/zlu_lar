@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+
+use App\Http\Requests\Home\FeedBackRequest;
+
+
 
 class HomeController extends Controller
 {
@@ -14,7 +17,23 @@ class HomeController extends Controller
     }
 
     public function feedback(){
+
         return view('home.feedback');
+    }
+
+    /**
+     * @param FeedBackRequest $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function feedbackSend(FeedBackRequest $request){
+
+        if(mail('feedback@bdsmzlu.club',
+            $request->subject,
+            $request->message,
+            ['From' => $request->email]
+        )) return back()->with('success', true);
+        else back()->withErrors('email_error');
     }
 
 
