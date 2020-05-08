@@ -24,4 +24,30 @@
             else return 'is-invalid';
         }
 
+        public function option_days()
+        {
+            $days = [];
+            for ($i=1; $i <10 ; $i++) $days[$i] = '0'.$i;
+            for ($i=10; $i <32 ; $i++) $days[$i] = $i;
+            return $days;
+        }
+
+        public function option_months(){
+            $months = [];
+            $months_key = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+            foreach ($months_key AS $key => $val)
+                $months[$key + 1] = "months.$val";
+            return $months;
+        }
+
+        public function option_years(){
+             $years = [];
+             $yearUntil = date("Y") - 19;
+             $yearTo= date("Y") - 90;
+                for ($i = $yearUntil; $i >= $yearTo ; $i--)
+                    $years[$i] =  $i;
+             return $years;
+
+        }
+
     }

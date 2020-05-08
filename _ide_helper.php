@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 7.10.2 on 2020-05-06 12:28:24.
+ * Generated for Laravel 7.10.2 on 2020-05-07 08:05:10.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -15311,6 +15311,28 @@ namespace App\Facades {
         {
                         /** @var \App\Components\MainHelper $instance */
                         return $instance->is_valid_form($field);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function option_days()
+        {
+                        /** @var \App\Components\MainHelper $instance */
+                        return $instance->option_days();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function option_months()
+        {
+                        /** @var \App\Components\MainHelper $instance */
+                        return $instance->option_months();
         }
          
     }

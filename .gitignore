@@ -13,3 +13,7 @@ yarn-error.log
 !/public/img/
 /public/img/
 
+
+/public/sxd/
+!/public/sxd/
+!/public/sxd

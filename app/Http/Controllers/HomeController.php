@@ -20,7 +20,7 @@ class HomeController extends Controller
 
         return view('home.feedback');
     }
-
+ 
     /**
      * @param FeedBackRequest $request
      *

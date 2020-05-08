@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
     $mainGlobalGroup =  function (){
+        Auth::routes();
         Route::get('/', 'HomeController@index')->name('home');
         Route::get('/feedback', 'HomeController@feedback')->name('feedback');
         Route::post('/feedback', 'HomeController@feedbackSend')->name('feedback.post');
@@ -24,7 +25,11 @@ use Illuminate\Support\Facades\Route;
     Route::group(['domain' => 'bdsmzlu.club'], $mainGlobalGroup);
 
 
-    Auth::routes();
+    Route::group(['prefix' => "geo" ], function (){
+            Route::get('regions/{id}', 'GeoController@region')->name('geo.regions');
+            Route::get('cities/{id}', 'GeoController@cities')->name('geo.cities');
+    });
+
 
 
 
