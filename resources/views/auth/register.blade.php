@@ -48,6 +48,7 @@
                                        type="password"
                                        class="form-control {{MainHelper::is_valid_form('password')}}"
                                        name="password"
+                                       value="{{ old('password') }}"
                                        required autocomplete="new-password">
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -63,6 +64,7 @@
                                        type="password"
                                        class="form-control"
                                        name="password_confirmation"
+                                       value="{{old('password_confirmation')}}"
                                        required autocomplete="new-password">
                             </div>
                         </div>
@@ -97,6 +99,15 @@
                                         id="region"
                                         required>
                                     <option></option>
+                                    @if(!empty($regions))
+                                        @foreach($regions as $region)
+                                            @php /** @var App\Models\Geo\GeoRegions $region */ @endphp
+                                            <option value="{{$region->id}}"
+                                                    @if(old("region") == $region->id) selected @endif>
+                                                {{$region->title}}
+                                            </option>
+                                        @endforeach
+                                    @endif
                                 </select>
                                 @error('region')
                                 <span class="invalid-feedback" role="alert">
@@ -113,6 +124,15 @@
                                         id="city"
                                         required>
                                     <option></option>
+                                    @if(!empty($cities))
+                                        @foreach($cities as $city)
+                                            @php /** @var App\Models\Geo\GeoCities $city */ @endphp
+                                            <option value="{{$city->id}}"
+                                                    @if(old("city") == $city->id) selected @endif>
+                                                {{$city->title}}
+                                            </option>
+                                        @endforeach
+                                    @endif
                                 </select>
                                 @error('city')
                                 <span class="invalid-feedback" role="alert">
@@ -126,8 +146,9 @@
                             <div class="form-group col-3 col-md-2 offset-md-2">
                                 <label for="day">{{__('auth/register.day')}}</label>
                                 <select type="text"
+                                        name="day"
                                         class="form-control {{MainHelper::is_valid_form('day')}}"
-                                        id="inputCity">
+                                        id="day">
                                         <option></option>
                                     @foreach(MainHelper::option_days() as $key => $val)
                                         <option value="{{$key}}"
@@ -140,6 +161,7 @@
                             <div class="form-group col-4 col-md-3">
                                 <label for="month">{{__('auth/register.month')}}</label>
                                 <select id="month"
+                                        name="month"
                                         class="form-control {{MainHelper::is_valid_form('month')}}">
                                     <option></option>
                                     @foreach(MainHelper::option_months() as $key => $val)
@@ -153,6 +175,7 @@
                             <div class="form-group col-5 col-md-3">
                                 <label for="year">{{__("auth/register.year")}}</label>
                                 <select id="year"
+                                        name="year"
                                         class="form-control {{MainHelper::is_valid_form('year')}}">
                                     <option></option>
                                     @foreach(MainHelper::option_years() as $key => $val)
@@ -200,10 +223,10 @@
                                     <option value="man" @if(old('gender') == 'man') selected @endif>
                                         {{__('auth/register.man')}}
                                     </option>
-                                    <option value="submission" @if(old('gender') == 'woman') selected @endif>
+                                    <option value="woman" @if(old('gender') == 'woman') selected @endif>
                                         {{__('auth/register.woman')}}
                                     </option>
-                                    <option value="switch" @if(old('gender') == 'trans') selected @endif>
+                                    <option value="trans" @if(old('gender') == 'trans') selected @endif>
                                         {{__('auth/register.trans')}}
                                     </option>
                                 </select>
@@ -215,7 +238,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="city" class="col-md-4 col-form-label text-md-right">{{ __('auth/register.about') }}</label>
+                            <label for="about" class="col-md-4 col-form-label text-md-right">{{ __('auth/register.about') }}</label>
                             <div class="col-md-6">
                                 <textarea name="about"
                                         class="form-control {{MainHelper::is_valid_form('about')}}"
@@ -224,6 +247,11 @@
                                         required>
                                     {{old('about')}}
                                 </textarea>
+                                @error('about')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-group row">
@@ -236,6 +264,11 @@
                                         required>
                                     {{old('interests')}}
                                 </textarea>
+                                @error('interests')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-group row">
@@ -248,6 +281,11 @@
                                         required>
                                     {{old('taboo')}}
                                 </textarea>
+                                @error('taboo')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-group row m-4">
@@ -262,6 +300,7 @@
                                         {{__('auth/register.agreement')}}
                                     </a>
                                 </label>
+
                             </div>
                         </div>
                         <div class="form-group row mb-5">
@@ -276,10 +315,20 @@
     </div>
 </div>
 <script type="text/javascript">
+    let csrftoken = $("meta[name='csrf-token']").attr('content');
+
     $('select[name=country]').change(function(){
         let country = Number($('select[name=country]').val());
         if (country > 0) {
-            $.get('geo/regions/'+country ,{},function(data){
+            $.ajax({
+                url: 'geo/regions/'+country,
+                type: 'POST',
+                data: ({}),
+                beforeSend: function(request) {
+                    return request.setRequestHeader('X-CSRF-Token', csrftoken);
+                },
+            })
+            .done(function(data) {
                 $('select[name=region]').empty();
                 $('select[name=city]').empty();
                 $('select[name=region]').append(("<option value = ''></option>"));
@@ -294,12 +343,20 @@
     $('select[name=region]').change(function(){
         let region = Number($('select[name=region]').val());
         if (region > 0) {
-            $.get('geo/cities/'+region ,{},function(data){
-                $('select[name=city]').empty();
-                $('select[name=city]').append(("<option value = ''></option>"));
-                for(let id in data){
-                    $('select[name=city]').append(("<option value = '"+ id +"'>"+data[id] +"</option>"));}
-            });
+            $.ajax({
+                url: 'geo/cities/'+region,
+                type: 'POST',
+                data: ({}),
+                beforeSend: function(request) {
+                    return request.setRequestHeader('X-CSRF-Token', csrftoken);
+                },
+            })
+                .done(function(data) {
+                    $('select[name=city]').empty();
+                    $('select[name=city]').append(("<option value = ''></option>"));
+                    for(let id in data){
+                        $('select[name=city]').append(("<option value = '"+ id +"'>"+data[id] +"</option>"));}
+                });
         }else {
             $('select[name=city]').empty();
         }

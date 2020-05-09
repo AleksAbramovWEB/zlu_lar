@@ -18,6 +18,7 @@
 - версия laravel: `php artisan -v`
 - показать все маршруты: `php artisan route:list`
 
+- создать рулю: `php artisan make:rule Uppercase`
 - перезагурзить кеш при изменениях в .evn `php artisan config:cache`
 - cоздать посредника `php artisan make:middleware CheckAge`
 - создать отпровителя email `php artisan make:mail FeedbackEmail`
@@ -52,3 +53,5 @@
 - создание PHPDoc для фасадов Laravel - php artisan ide-helper:generate
 - PHPDocs для моделей - php artisan ide-helper:models
 - Метафайл PhpStorm - php artisan ide-helper:meta
+
+19901508Oi

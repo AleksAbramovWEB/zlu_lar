@@ -26,8 +26,8 @@ use Illuminate\Support\Facades\Route;
 
 
     Route::group(['prefix' => "geo" ], function (){
-            Route::get('regions/{id}', 'GeoController@region')->name('geo.regions');
-            Route::get('cities/{id}', 'GeoController@cities')->name('geo.cities');
+            Route::post('regions/{id}', 'GeoController@region')->name('geo.regions');
+            Route::post('cities/{id}', 'GeoController@cities')->name('geo.cities');
     });
 
 
