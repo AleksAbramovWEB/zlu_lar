@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Geo\GeoRegions
  *
- * @property int $id псевдоним
- * @property int $region_id
+ * @property int $id
  * @property int $country_id
  * @property string|null $title псевдоним
  * @property string|null $title_ru

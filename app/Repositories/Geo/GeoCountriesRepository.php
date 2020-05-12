@@ -24,7 +24,7 @@
          */
         public function getAllCountries(){
             return $this->startCondition()
-                        ->select("country_id as id", "title_{$this->local} AS title")
+                        ->select("id", "title_{$this->local} AS title")
                         ->orderByRaw("title_{$this->local} ASC")
                         ->toBase()
                         ->get();

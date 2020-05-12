@@ -46,6 +46,12 @@
 - Создать миграцию и модель: php artisan make:model Models/BlogCategory -m
 - Миграция в bd: php artisan migrate
 
+####СИДЫ
+- создать сид: `php artisan make:seeder UserSeeder`
+- запуск сидов: `php artisan db:seed`
+- запуск конкретного сида: `php artisan db:seed --class=UserTableSeeder`
+
+
 ####npm
 - компиляция файлов: `npm run watch`
 
@@ -54,4 +60,4 @@
 - PHPDocs для моделей - php artisan ide-helper:models
 - Метафайл PhpStorm - php artisan ide-helper:meta
 
-19901508Oi
+

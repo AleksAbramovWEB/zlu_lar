@@ -50,4 +50,8 @@
 
         }
 
+        public function sanINT($int){
+            return (int)filter_var(($int), FILTER_SANITIZE_NUMBER_INT);
+        }
+
     }

@@ -27,7 +27,7 @@
         public function getAllRegionsByCountryId($country_id){
             if (empty($country_id)) return NULL;
             return $this->startCondition()
-                        ->select("region_id as id", "title_{$this->local} AS title")
+                        ->select("id", "title_{$this->local} AS title")
                         ->where('country_id', $country_id)
                         ->orderByRaw("title_{$this->local} ASC")
                         ->toBase()

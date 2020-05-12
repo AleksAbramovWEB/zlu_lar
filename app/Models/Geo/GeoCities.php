@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Geo\GeoCities
  *
- * @property int $id псевдоним
- * @property int $city_id
+ * @property int $id
  * @property int $country_id
  * @property int $region_id
  * @property string|null $title псевдоним

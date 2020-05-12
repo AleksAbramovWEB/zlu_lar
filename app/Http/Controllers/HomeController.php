@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\Home\FeedBackRequest;
+use App\Components\UserSeeder;
+use Faker\Generator as Faker;
 
 
 
@@ -20,7 +22,7 @@ class HomeController extends Controller
 
         return view('home.feedback');
     }
- 
+
     /**
      * @param FeedBackRequest $request
      *
@@ -35,6 +37,13 @@ class HomeController extends Controller
         )) return back()->with('success', true);
         else back()->withErrors('email_error');
     }
+
+    public function polygon(){
+
+
+
+    }
+
 
 
 

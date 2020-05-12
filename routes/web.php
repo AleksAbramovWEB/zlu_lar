@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
     $mainGlobalGroup =  function (){
         Auth::routes();
         Route::get('/', 'HomeController@index')->name('home');
+        Route::get('/polygon', 'HomeController@polygon')->name('polygon');
         Route::get('/feedback', 'HomeController@feedback')->name('feedback');
         Route::post('/feedback', 'HomeController@feedbackSend')->name('feedback.post');
     };
