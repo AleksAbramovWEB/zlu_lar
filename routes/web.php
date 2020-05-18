@@ -18,12 +18,33 @@ use Illuminate\Support\Facades\Route;
         Route::get('/polygon', 'HomeController@polygon')->name('polygon');
         Route::get('/feedback', 'HomeController@feedback')->name('feedback');
         Route::post('/feedback', 'HomeController@feedbackSend')->name('feedback.post');
+
+        Route::group(['namespace' => 'Connexion', 'prefix' => 'connexion'], function (){
+            // мой профиль
+            Route::group(['prefix' => 'my_profile', 'middleware' =>['auth']], function (){
+                Route::get('/', 'UserController@my_profile')->name('connexion.my_profile');
+                Route::post('/avatar', 'UserController@save_avatar')->name('connexion.my_profile.avatar');
+                Route::post('/avatar/remove', 'UserController@delete_avatar')->name('connexion.my_profile.avatar.remove');
+                Route::post('/greeting', 'UserController@change_greeting')->name('connexion.my_profile.greeting');
+                Route::post('/greeting/remove', 'UserController@delete_greeting')->name('connexion.my_profile.greeting.remove');
+            });
+            // все профили
+            Route::get('/profile/{id}', 'UserController@profile')->name('connexion.profile');
+            // по поиску
+            Route::get('/profiles', 'UserController@profiles')->name('connexion.profiles');
+
+
+
+//            $method = ['edit', 'store', 'update', 'create', 'destroy'];
+//            Route::resource('profiles', 'UserController')->only($method)->names('connexion.profiles');
+        });
     };
 
 
     Route::group(['domain' => '{locale}.bdsmzlu.club'], $mainGlobalGroup);
 
     Route::group(['domain' => 'bdsmzlu.club'], $mainGlobalGroup);
+
 
 
     Route::group(['prefix' => "geo" ], function (){

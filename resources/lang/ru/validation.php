@@ -142,6 +142,9 @@
             'attribute-name' => [
                 'rule-name' => 'custom-message',
             ],
+            'avatar' => [
+                'required' => 'Вы не выбрали фото'
+            ]
         ],
 
         /*
@@ -193,5 +196,6 @@
             'size'                  => 'Размер',
             'subject'               => 'тема',
             'message'               => 'сообщение',
+            'greeting'              => 'приветствие'
         ],
     ];

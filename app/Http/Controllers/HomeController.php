@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Home\FeedBackRequest;
 use App\Components\UserSeeder;
+use App\Repositories\Geo\GeoCountriesRepository;
+use Carbon\Carbon;
 use Faker\Generator as Faker;
 
 
@@ -14,8 +16,9 @@ class HomeController extends Controller
 
 
 
-    public function index(){
-        return view('home.index');
+    public function index(GeoCountriesRepository $countriesRepository){
+        $countries = $countriesRepository->getAllCountries();
+        return view('home.index', compact('countries'));
     }
 
     public function feedback(){

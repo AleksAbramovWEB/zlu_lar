@@ -6,6 +6,7 @@
 ###_COMPOSER:_
 
 - обновить все пакеты: `composer update`
+- очистить кеш: `composer clearcache`
 
 ###_ПАКЕТЫ:_
 #####ide-helper:
@@ -20,11 +21,11 @@
 
 - создать рулю: `php artisan make:rule Uppercase`
 - перезагурзить кеш при изменениях в .evn `php artisan config:cache`
-- cоздать посредника `php artisan make:middleware CheckAge`
+- cоздать посредника `php artisan make:middleware UserOnline`
 - создать отпровителя email `php artisan make:mail FeedbackEmail`
-- cоздать request `php artisan make:request FeedBackRequest`
+- cоздать request `php artisan make:request Connexion\ChangeUserGreetingRequest`
 - создать контроллер `php artisan make:controller HomeController`
-- cоздать ресурсный контроллер:`php artisan make:controller PhotoController --resource --model=Photo`
+- cоздать ресурсный контроллер:`php artisan make:controller Connexion\UserController --resource --model=Models/User`
 
 ####МИГРАЦИИ
 - Создать миграцию и модель: `php artisan make:model Models/BlogCategory -m`
@@ -59,5 +60,9 @@
 - создание PHPDoc для фасадов Laravel - php artisan ide-helper:generate
 - PHPDocs для моделей - php artisan ide-helper:models
 - Метафайл PhpStorm - php artisan ide-helper:meta
+
+#### работа напрямую
+# php artisan tinker
+# Storage::disk('s3')->files()
 
 

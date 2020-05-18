@@ -35,6 +35,7 @@ class CreateUsersTable extends Migration
             $table->integer('coins')->default(0);
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -54,4 +54,23 @@
             return (int)filter_var(($int), FILTER_SANITIZE_NUMBER_INT);
         }
 
+        /**
+         * Получить ссылку на фаил s3
+         * @param $path string путь на диске s3
+         * @return string
+         */
+        public function getFileS3($path){
+            $client = \Storage::disk('s3')->getDriver()->getAdapter()->getClient();
+            $bucket = \Config::get('filesystems.disks.s3.bucket');
+            $command = $client->getCommand('GetObject', [
+                'Bucket' => $bucket,
+                'Key' => $path  // file name in s3 bucket which you want to access
+            ]);
+            $request = $client->createPresignedRequest($command, '+20 minutes');
+
+            return  (string)$request->getUri();
+
+        }
+
+
     }

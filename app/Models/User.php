@@ -2,7 +2,13 @@
 
 namespace App\Models;
 
+use App\Components\MainHelper;
+use App\Models\Geo\GeoCities;
+use App\Models\Geo\GeoCountries;
+use App\Models\Geo\GeoRegions;
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -31,19 +37,58 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $country
+ * @property int $region
+ * @property int $city
+ * @property string $birthday
+ * @property string $position
+ * @property string $gender
+ * @property string|null $avatar
+ * @property string|null $about
+ * @property string|null $interests
+ * @property string|null $taboo
+ * @property string|null $greeting
+ * @property string|null $last_time
+ * @property string|null $vip
+ * @property int $coins
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereAbout($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereAvatar($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereBirthday($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereCity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereCoins($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereCountry($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereGender($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereGreeting($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereInterests($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereLastTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePosition($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereRegion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereTaboo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereVip($value)
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Geo\GeoCountries $geo_city
+ * @property-read \App\Models\Geo\GeoCountries $geo_country
+ * @property-read \App\Models\Geo\GeoCountries $geo_region
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User withoutTrashed()
  */
 class User extends Authenticatable
 {
     use Notifiable;
+    use SoftDeletes;
 
+
+    protected $table = 'users';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'country', 'region',  'city',
-        'birthday', 'position', 'gender' , 'about', 'interests','taboo'
+        'name', 'email', 'password', 'country', 'region',  'city', 'greeting',
+        'birthday', 'position', 'gender' , 'about', 'interests','taboo', 'last_time', 'avatar'
     ];
 
 
@@ -63,5 +108,130 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+
     ];
+
+
+    /**
+     ********************** СВЯЗИ ***************************************************************************
+     */
+
+    /**
+     * страна
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function geo_country()
+    {
+        return $this->belongsTo(GeoCountries::class, 'country');
+    }
+
+    /**
+     * регион
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function geo_region()
+    {
+        return $this->belongsTo(GeoRegions::class, 'region');
+    }
+
+    /**
+     * город
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function geo_city()
+    {
+        return $this->belongsTo(GeoCities::class, 'city');
+    }
+
+
+    /**
+     ********************** VIEW МЕТОДЫ ********************************************************************
+     */
+
+    /**
+     * получем возраст по дате рождения
+     */
+    public function getAge(){
+        return Carbon::parse($this->birthday)->diffInYears();
+    }
+
+
+    /**
+     * получаем состояние Online пользователя
+     * @return string|null
+     */
+    public function getOnline(){
+        if (empty($this->last_time)) return NULL;
+
+        $now_date = Carbon::now()->toDateString();
+        $minutes_ago = Carbon::now()->subMinutes(15)->toDateTimeString();
+        $day_ago_date = Carbon::now()->subDay()->toDateString();;
+
+        if (strtotime($minutes_ago) < strtotime($this->last_time)) return 'online';
+        else {
+            if ($this->last_time == $day_ago_date) $date = __('connexion/profiles.yesterday');
+            elseif($this->last_time == $now_date) $date = __('connexion/profiles.today');
+            else  $date = date('d.m.Y ', $this->last_time);
+            $was = __('connexion/profiles.was');
+            $at = __('connexion/profiles.at');
+            $minutes = date('H:i', $this->last_time);
+
+            return "$was $date $at $minutes";
+        }
+    }
+
+    /**
+     * получаем локализованный массив для профиля
+     * @return array
+     */
+    public function getInfo(){
+        $title = "title_".\App::getLocale();
+        $array = [
+           __('connexion/profiles.country') => $this->geo_country->$title,
+           __('connexion/profiles.region') => $this->geo_region->$title,
+           __('connexion/profiles.city') => $this->geo_city->$title,
+           __('connexion/profiles.gender') => __("connexion/profiles.{$this->gender}"),
+           __('connexion/profiles.position') => __("connexion/profiles.{$this->position}"),
+        ];
+        if (!empty($this->about))
+            $array[__("connexion/profiles.about")] = $this->about;
+        if (!empty($this->interests))
+            $array[__("connexion/profiles.interests")] = $this->interests;
+        if (!empty($this->taboo))
+            $array[__("connexion/profiles.taboo")] = $this->taboo;
+
+        return $array;
+    }
+
+    public function getAvatar(){
+//        $genders = ['man', 'woman', 'trans'];
+//        $positions = ['domination', 'submission', 'switch'];
+//        dd($this->gender, $this->position);
+
+        if ($this->avatar == "" || is_null($this->avatar)) {
+            if ($this->gender == "man" && $this->position =="domination")
+                return "/img/svg/force/master.svg";
+            if ($this->gender == "man" && $this->position =="submission")
+                return"/img/svg/force/sabman.svg";
+            if ($this->gender == "man" && $this->position =="switch")
+                return "/img/svg/force/man.svg";
+            if ($this->gender == "woman"&& $this->position =="domination" || $this->gender == "trans" && $this->position =="domination")
+                return "/img/svg/force/mistress.svg";
+            if ($this->gender == "woman"&& $this->position =="submission" || $this->gender == "trans" && $this->position =="submission")
+                return "/img/svg/force/sabwoman.svg";
+            if ($this->gender == "woman"&& $this->position =="switch" || $this->gender == "trans" && $this->position =="switch")
+                return "/img/svg/force/woman.svg";
+        }elseif (is_null($this->gender) && is_null($this->avatar) && is_null($this->position))
+            return "/img/svg/force/deleted.svg";
+        else{
+            return \MainHelper::getFileS3($this->avatar);
+        }
+
+
+
+    }
+
+
+
+
 }
