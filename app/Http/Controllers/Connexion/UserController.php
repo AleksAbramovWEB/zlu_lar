@@ -82,13 +82,20 @@ class UserController extends ConnexionBaseController
 
         if ($user[0]->id == \Auth::id()) return redirect()->route('connexion.my_profile');
 
-        return view('connexion.profiles', ['user' => $user[0]]);
+        return view('connexion.profile', ['user' => $user[0]]);
     }
 
-
+    /**
+     * выдача результатов поиска
+     * @param Request        $request
+     * @param UserRepository $userRepository
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function profiles(Request $request, UserRepository $userRepository){
         $users = $userRepository->getUsersElForSearch($request);
-
+        $users->appends($request->toArray())->links();
+        return view('connexion.profiles', compact('users'));
     }
 
 

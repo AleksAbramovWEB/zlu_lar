@@ -26,11 +26,13 @@
 - cоздать request `php artisan make:request Connexion\ChangeUserGreetingRequest`
 - создать контроллер `php artisan make:controller HomeController`
 - cоздать ресурсный контроллер:`php artisan make:controller Connexion\UserController --resource --model=Models/User`
+- Создать  модель: `php artisan make:model Models/Connexion/Messenger/Messenges`
+
 
 ####МИГРАЦИИ
 - Создать миграцию и модель: `php artisan make:model Models/BlogCategory -m`
 - Создать миграцию:
-- php artisan make:`migration create_users_table`
+- `php artisan make:migration create_messenger_messages_table`
 - php artisan make:`migration create_users_table --create=users`
 - php artisan make:`migration add_votes_to_users_table --table=users`
 - Запуск миграции: `php artisan migrate`
@@ -64,5 +66,8 @@
 #### работа напрямую
 # php artisan tinker
 # Storage::disk('s3')->files()
+
+#### получить блейды с пагинаторами
+php artisan vendor:publish --tag=laravel-pagination
 
 

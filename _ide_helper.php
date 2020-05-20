@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 7.11.0 on 2020-05-18 19:40:18.
+ * Generated for Laravel 7.11.0 on 2020-05-20 21:10:19.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -15386,6 +15386,36 @@ namespace App\Facades {
         }
          
     }
+
+    /**
+     * 
+     *
+     */ 
+    class DeclinationFacade {
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function hours($value)
+        {
+                        /** @var \App\Components\Declination $instance */
+                        return $instance->hours($value);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function users($value)
+        {
+                        /** @var \App\Components\Declination $instance */
+                        return $instance->users($value);
+        }
+         
+    }
  
 }
 
@@ -19210,6 +19240,8 @@ namespace  {
     class View extends \Illuminate\Support\Facades\View {}
 
     class MainHelper extends \App\Facades\MainHelperFacade {}
+
+    class Declination extends \App\Facades\DeclinationFacade {}
 
     class Debugbar extends \Barryvdh\Debugbar\Facade {}
 

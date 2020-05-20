@@ -27,6 +27,7 @@ a:hover {color: red;}
     -webkit-overflow-scrolling: touch;
     -webkit-transform: translate3d(0, 0, 0);
     -moz-transform: translate3d(0, 0, 0);
+    overflow: hidden;
     img {
         max-width: none;
         min-width: 100%;

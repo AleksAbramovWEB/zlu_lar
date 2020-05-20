@@ -9,6 +9,9 @@
         'man' => 'Man',
         'woman' => 'Women',
         'trans' => 'Trans',
+        'age' => 'Age',
+        'from' => 'from',
+        'to' => 'to',
 
 
     ];

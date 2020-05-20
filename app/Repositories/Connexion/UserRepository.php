@@ -38,7 +38,13 @@
             $where[] = ['id', '<>' ,\Auth::id()];
             if ($request->gender) $where[] = ['gender', '=' , $request->gender];
             if ($request->position) $where[] = ['position', '=' , $request->position];
-            if ($request->country) $where[] = ['country', '=' , $request->country];
+            if ($request->age_from){
+                $date = date((date('Y') - $request->age_from - 1) . '-m-d');
+                $where[] = ['birthday', '<=' , $date];
+            }if ($request->age_to){
+                $date = date((date('Y') - $request->age_to) . '-m-d');
+                $where[] = ['birthday', '>=' , $date];
+            }if ($request->country) $where[] = ['country', '=' , $request->country];
             if ($request->region) $where[] = ['region', '=' , $request->region];
             if ($request->city) $where[] = ['city', '=' , $request->city];
             if ($request->user_online){
@@ -54,7 +60,7 @@
                 $query->select(['id', "title_{$this->local} AS title"]);
             };
 
-            $fields = ['name', 'birthday', 'position', 'gender', 'avatar', 'greeting', 'last_time', 'country', 'region', 'city'];
+            $fields = ['id', 'name', 'birthday', 'position', 'gender', 'avatar', 'greeting', 'last_time', 'country', 'region', 'city'];
 
             $users = $this->startCondition()
                           ->select($fields)

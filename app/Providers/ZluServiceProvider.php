@@ -15,9 +15,12 @@ class ZluServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // регистрируем свой фасад MainHelper
+        // регистрируем свой фасад MainHelper Declination
         \App::bind('MainHelper', function(){
             return new \App\Components\MainHelper;
+        });
+        \App::bind('Declination', function(){
+            return new \App\Components\Declination;
         });
     }
 

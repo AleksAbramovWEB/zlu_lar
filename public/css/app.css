@@ -10915,6 +10915,7 @@ a:hover {
   -webkit-overflow-scrolling: touch;
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
+  overflow: hidden;
 }
 
 .avatars img {
@@ -10929,6 +10930,13 @@ a:hover {
 }
 
 .profile .profile_avatar {
-  min-height: 450px;
+  min-height: 400px;
+}
+
+.profiles_search .avatars {
+  max-width: 100px;
+  min-width: 100px;
+  height: 150px;
+  border: white 1px solid;
 }
 

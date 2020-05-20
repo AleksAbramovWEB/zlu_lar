@@ -6,7 +6,7 @@
             <div class="form-group">
                 <label for="gender">{{__('home/home.find_gender')}}:</label>
                 <select name="gender"
-                        class="custom-select {{MainHelper::is_valid_form('gender')}}"
+                        class="custom-select"
                         id="gender">
                     <option></option>
                     <option value="man" @if(old('gender') == 'man') selected @endif>
@@ -22,9 +22,9 @@
             </div>
         </div>
         <div class="col">
-            <label for="gender">{{__('home/home.find_position')}}:</label>
+            <label for="gender">{{__('home/home.age')}}:</label>
             <select name="position"
-                    class="custom-select {{MainHelper::is_valid_form('position')}}"
+                    class="custom-select"
                     id="position">
                 <option></option>
                 <option value="domination" @if(old('position') == 'domination') selected @endif>
@@ -38,7 +38,29 @@
                 </option>
             </select>
         </div>
-
+        <div class="col-3">
+            <label for="gender" class="text-center w-100">@lang('home/home.age'):</label>
+            <div class="form-group row col-12 justify-content-around w-100 p-0 m-0">
+                <label for="age_from" class="col-form-label mr-1">@lang('home/home.from')</label>
+                <select name="age_from"
+                        class="custom-select col"
+                        id="age_from">
+                    <option></option>
+                    @for($i = 19; $i < 80; $i++)
+                        <option value="{{$i}}">{{$i}}</option>
+                    @endfor
+                </select>
+                <label for="age_to" class="col-form-label ml-2 mr-1">@lang('home/home.to')</label>
+                <select name="age_to"
+                        class="custom-select col"
+                        id="age_to">
+                    <option></option>
+                    @for($i = 79; $i > 18; $i--)
+                        <option value="{{$i}}">{{$i}}</option>
+                    @endfor
+                </select>
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col">
@@ -60,8 +82,7 @@
             <label for="region" class="col-form-label text-md-right">{{ __('auth/register.region') }}:</label>
             <select name="region"
                     class="form-control"
-                    id="region"
-                    required>
+                    id="region">
                 <option></option>
                 @isset($regions)
                     @foreach($regions as $region)
@@ -78,8 +99,7 @@
             <label for="city" class="col-form-label text-md-right">{{ __('auth/register.city') }}</label>
             <select name="city"
                     class="form-control"
-                    id="city"
-                    required>
+                    id="city">
                 <option></option>
                 @isset($cities)
                     @foreach($cities as $city)

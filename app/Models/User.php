@@ -162,19 +162,19 @@ class User extends Authenticatable
      */
     public function getOnline(){
         if (empty($this->last_time)) return NULL;
-
+        $time = strtotime($this->last_time);
         $now_date = Carbon::now()->toDateString();
         $minutes_ago = Carbon::now()->subMinutes(15)->toDateTimeString();
         $day_ago_date = Carbon::now()->subDay()->toDateString();;
 
-        if (strtotime($minutes_ago) < strtotime($this->last_time)) return 'online';
+        if (strtotime($minutes_ago) < $time) return 'online';
         else {
             if ($this->last_time == $day_ago_date) $date = __('connexion/profiles.yesterday');
             elseif($this->last_time == $now_date) $date = __('connexion/profiles.today');
-            else  $date = date('d.m.Y ', $this->last_time);
+            else  $date = date('d.m.Y', $time);
             $was = __('connexion/profiles.was');
             $at = __('connexion/profiles.at');
-            $minutes = date('H:i', $this->last_time);
+            $minutes = date('H:i', $time);
 
             return "$was $date $at $minutes";
         }
