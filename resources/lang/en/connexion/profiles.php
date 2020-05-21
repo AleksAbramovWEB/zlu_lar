@@ -21,4 +21,6 @@
       'taboo' => 'taboo',
       'start_new_search' => 'start a new search',
       'found' => 'Found',
+      'write_message' => 'To write a message',
+
     ];

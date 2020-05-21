@@ -32,8 +32,13 @@ use Illuminate\Support\Facades\Route;
             Route::get('/profile/{id}', 'UserController@profile')->name('connexion.profile');
             // по поиску
             Route::get('/profiles', 'UserController@profiles')->name('connexion.profiles');
+            // месседжер
+            Route::group(['prefix' => 'messenger', 'middleware' =>['auth'], 'namespace' => 'Messenger'], function (){
+                Route::post('/new_contact', 'ContactsController@new_contact')->name('connexion.messenger.new_contact')->middleware('new.contact');
 
-
+                Route::get('/contact/{id}', 'MessagesController@show_contact_with_massages')->name('connexion.messenger.show_contact');
+                Route::post('/new_message/{id}', 'MessagesController@new_message')->name('connexion.messenger.new_message')->middleware('new.message');
+            });
 
 //            $method = ['edit', 'store', 'update', 'create', 'destroy'];
 //            Route::resource('profiles', 'UserController')->only($method)->names('connexion.profiles');

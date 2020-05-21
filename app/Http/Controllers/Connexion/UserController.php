@@ -7,13 +7,12 @@ use App\Http\Requests\Connexion\ChangeUserAvatarRequest;
 use App\Http\Requests\Connexion\ChangeUserGreetingRequest;
 use App\Models\User;
 use App\Repositories\Connexion\UserRepository;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class UserController extends ConnexionBaseController
 {
-    private $user_auth;
+
 
 
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace App\Http\Middleware\Connexion;
 
 use Carbon\Carbon;
 use Closure;

@@ -40,7 +40,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\LangMiddleware::class,
-            \App\Http\Middleware\UserOnline::class
+            \App\Http\Middleware\Connexion\UserOnline::class
         ],
 
         'api' => [
@@ -69,5 +69,8 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        // для сообщений
+        'new.contact' => \App\Http\Middleware\Connexion\Messenger\NewContact::class,
+        'new.message' => \App\Http\Middleware\Connexion\Messenger\NewMessage::class
     ];
 }

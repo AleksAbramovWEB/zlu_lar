@@ -21,11 +21,11 @@
 
 - создать рулю: `php artisan make:rule Uppercase`
 - перезагурзить кеш при изменениях в .evn `php artisan config:cache`
-- cоздать посредника `php artisan make:middleware UserOnline`
+- cоздать посредника `php artisan make:middleware Connexion\Messenger\newMessage`
 - создать отпровителя email `php artisan make:mail FeedbackEmail`
-- cоздать request `php artisan make:request Connexion\ChangeUserGreetingRequest`
+- cоздать request `php artisan make:request Connexion\Messenger\NewMessageRequest`
 - создать контроллер `php artisan make:controller HomeController`
-- cоздать ресурсный контроллер:`php artisan make:controller Connexion\UserController --resource --model=Models/User`
+- cоздать ресурсный контроллер:`php artisan make:controller Connexion\Messenger\MessagesController --resource --model=Models/Connexion/Messenger/Messages`
 - Создать  модель: `php artisan make:model Models/Connexion/Messenger/Messenges`
 
 

@@ -6,7 +6,7 @@
     use App\Http\Controllers\Controller;
 
 
-    class ConnexionBaseController extends Controller
+    abstract class ConnexionBaseController extends Controller
     {
 
     }
