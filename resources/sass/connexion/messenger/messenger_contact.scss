@@ -1,0 +1,33 @@
+.messenger_contact {
+    .avatars {
+        max-width: 130px;
+        min-width: 130px;
+        height: 170px;
+        border: white 1px solid;
+    }
+
+
+
+    .view{
+        width: 20px;
+        height: 20px;
+        margin-left: 20px;
+    }
+    .message_is_viewed {background: url('/img/svg/check2.svg')no-repeat;background-size: 100% 100%;}
+    .message_is_not_viewed {background: url('/img/svg/check1.svg')no-repeat;background-size: 100% 100%;}
+
+    .add_photo{
+
+        width: 40px;
+        height: 40px;
+        svg {
+            fill: white;
+            max-height: 100%;
+            max-width: 100%;
+        }
+    }
+
+    .add_photo:hover svg{
+        fill: #6c757d;
+    }
+}

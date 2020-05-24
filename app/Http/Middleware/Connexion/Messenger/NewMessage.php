@@ -37,13 +37,15 @@ class NewMessage
     }
 
     private function contact_to_new($user_contact){
+        $time = Carbon::now()->toDateTimeString();
         $contact = new Contacts();
         $data = [
             'user_id' => $user_contact,
             'user_contact' => \Auth::id(),
             'user_creator' => \Auth::id(),
             'category' => 'main_list',
-            'created_at' => Carbon::now()->toDateTimeString()
+            'created_at' => $time,
+            'updated_at' => $time,
         ];
         return $contact->insertGetId($data);
     }

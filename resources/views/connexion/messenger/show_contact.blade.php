@@ -38,8 +38,15 @@
                                        placeholder="{{__('home/feedback.message')}}"
                                        required
                              ></textarea>
-                             <div class="row">
-                                 <div class="col"></div>
+                             <div class="row mt-2">
+                                 <div class="col">
+                                     <a href="">
+                                         <div class="add_photo">
+                                             @include('connexion.messenger.includes.fpg_svg')
+                                         </div>
+                                     </a>
+
+                                 </div>
                                  <div class="col"></div>
                                  <div class="col">
                                      <button type="submit" class="font-weight-bold btn btn-light btn-block mt-1">
@@ -52,21 +59,26 @@
                 </div>
             </div>
         </div>
-
-        @foreach($messages AS $message)
-            @php /** @var App\Models\Connexion\Messenger\Messages $message */ @endphp
-        <div class="card border-dark mb-4 col-8 {{$message->my_indentation($contact->id)}}">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col">{{$message->my_name($contact->id, $contact->to_user_contact->name)}}</div>
-                    <div class="col"></div>
+        @if($messages)
+            @foreach($messages AS $message)
+                @php /** @var App\Models\Connexion\Messenger\Messages $message */ @endphp
+            <div class="card border-dark mb-4 col-8 {{$message->my_indentation($contact->id)}}">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="row">
+                                <div>{{$message->my_name($contact->id, $contact->to_user_contact->name)}}</div>
+                                <div class="view {{$message->my_view($contact->id)}}"></div>
+                            </div>
+                        </div>
+                        <div class="col text-right">{{$message->my_time()}}</div>
+                    </div>
+                    <div class="text-justify mt-2">{{$message->message}}</div>
                 </div>
-                <div class="text-justify mt-2">{{$message->message}}</div>
             </div>
-        </div>
-        @endforeach
+            @endforeach
 
-        {{$messages->links('blades.my_paginator')}}
-        
+            {{$messages->links('blades.my_paginator')}}
+        @endif
     </div>
 @endsection

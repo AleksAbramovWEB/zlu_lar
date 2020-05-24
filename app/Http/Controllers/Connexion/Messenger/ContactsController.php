@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Connexion\Messenger;
 
+use App\Exceptions\Connexion\Messenger\CategoryNotFoundException;
 use App\Http\Requests\Connexion\Messenger\NewContactRequest as NewContactRequestAlias;
 use App\Models\Connexion\Messenger\Contacts;
 use App\Repositories\Connexion\Messenger\MessengerContactsRepository;
@@ -11,8 +12,31 @@ use Illuminate\Http\Request;
 class ContactsController extends MessengerBaseController
 {
 
+    public function  all_lists(){
+        return redirect()->route('connexion.messenger.main_list');
+    }
 
+    // готовим данные взависимоти от категории
+    private function get_list($category){
+        $contactsRepository = new MessengerContactsRepository;
+        $contacts = $contactsRepository->getListContacts($category);
+        $count = $contactsRepository->countContactsForAllLists();
+        return view('connexion.messenger.contacts_list',
+            compact('contacts', 'count', 'category'));
+    }
 
+    // основной список контактов
+    public function main_list(){
+        return $this->get_list('main_list');
+    }
+    // фавориты
+    public function list_of_favorites(){
+        return $this->get_list('list_of_favorites');
+    }
+    // игнорируемые
+    public function black_list(){
+        return $this->get_list('black_list');
+    }
 
     /**
      * Создание нового диалога.
@@ -22,51 +46,65 @@ class ContactsController extends MessengerBaseController
      */
     public function new_contact(NewContactRequestAlias $request, Contacts $contacts)
     {
+        $time = Carbon::now()->toDateTimeString();
+
         $data = [
             'user_id' => \Auth::id(),
             'user_contact' => $request->user_id,
             'user_creator' => \Auth::id(),
             'category' => 'main_list',
-            'created_at' => Carbon::now()->toDateTimeString()
+            'created_at' => $time,
+            'updated_at' => $time,
         ];
         $contacts_id =  $contacts->insertGetId($data);
 
        return redirect()->route('connexion.messenger.show_contact', ['id' => $contacts_id]);
     }
 
-
-
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Connexion\Messenger\Contacts  $contacts
-     * @return \Illuminate\Http\Response
+     * изменить категорию контакта
+     * @param $param
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws CategoryNotFoundException
      */
-    public function edit(Contacts $contacts)
-    {
-        //
+    private function update_category($param, $id){
+        $lists = ['main_list', 'list_of_favorites', 'black_list'];
+        if (!in_array($param, $lists)) throw new CategoryNotFoundException();
+        $contact = new Contacts();
+        $contact->where([['user_id', \Auth::id()], ['id' , $id]])
+                ->update(['category' => $param]);
+        return back();
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Connexion\Messenger\Contacts  $contacts
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Contacts $contacts)
+    // перенести в основной лист
+    public function update_to_main_list($id)
     {
-        //
+       return $this->update_category('main_list', $id);
+    }
+    // перенести в избранные
+    public function update_to_list_of_favorites($id)
+    {
+        return $this->update_category('list_of_favorites', $id);
+    }
+    // перенести в черный список
+    public function update_to_black_list($id)
+    {
+        return $this->update_category('black_list', $id);
     }
 
+
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Connexion\Messenger\Contacts  $contacts
-     * @return \Illuminate\Http\Response
+     * удалить кактегорию
+     * @param \App\Models\Connexion\Messenger\Contacts $contacts
+     * @param                                          $id
+     * @return void
      */
-    public function destroy(Contacts $contacts)
+    public function destroy(Contacts $contacts, $id)
     {
-        //
+        $contacts->where([['user_id', \Auth::id()], ['id' , $id]])
+                 ->delete();
+
+        return back();
     }
 }

@@ -1,5 +1,5 @@
 @if ($paginator->hasPages())
-    <div class="card mb-4">
+    <div class="border-light card mb-4 ">
         <div class="card-body">
             <nav>
                 <ul class="pagination justify-content-around mb-0 pagination-sm">

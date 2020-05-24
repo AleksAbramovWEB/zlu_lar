@@ -15,10 +15,10 @@ class CreateMessengerMessagesTable extends Migration
     {
         Schema::create('messenger_messages', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('contact_from')->unsigned()->index();
-            $table->foreign('contact_from')->references('id')->on('messenger_contacts');
-            $table->bigInteger('contact_to')->unsigned()->index();
-            $table->foreign('contact_to')->references('id')->on('messenger_contacts');
+            $table->bigInteger('contact_from')->unsigned()->index()->nullable();
+            $table->foreign('contact_from')->references('id')->on('messenger_contacts')->onDelete('set null');
+            $table->bigInteger('contact_to')->unsigned()->index()->nullable();
+            $table->foreign('contact_to')->references('id')->on('messenger_contacts')->onDelete('set null');
             $table->text('message');
             $table->boolean('viewed')->default(0);
             $table->timestamps();

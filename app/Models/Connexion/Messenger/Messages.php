@@ -2,9 +2,11 @@
 
 namespace App\Models\Connexion\Messenger;
 
+use App\Traits\LocalTimestamps;
+use Carbon\Carbon;
+use Carbon\Traits\Timestamp;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Notifications\Notifiable;
+
 
 /**
  * App\Models\Connexion\Messenger\Messages
@@ -31,6 +33,9 @@ use Illuminate\Notifications\Notifiable;
  */
 class Messages extends Model
 {
+
+    use LocalTimestamps;
+
     public $timestamps = true;
 
     protected $dates = [
@@ -56,4 +61,29 @@ class Messages extends Model
         if($this->contact_from == $myContactId) return \Auth::user()->name;
         else return $name;
     }
+
+
+
+    // отображение времени отпраки сообщения
+    public function my_time(){
+        return $this->returnTimeFormat(
+            $this->created_at_local,
+            1, __('connexion/messenger.just'),
+            10, __('connexion/messenger.minutes_ago')
+        );
+    }
+
+    public function my_view($myContactId){
+        if($this->contact_from !== $myContactId) return NULL;
+        if ($this->viewed == 0) return 'message_is_not_viewed';
+        if ($this->viewed == 1) return 'message_is_viewed';
+    }
+
+
+
+
+
+
+
+
 }

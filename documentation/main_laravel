@@ -19,14 +19,15 @@
 - версия laravel: `php artisan -v`
 - показать все маршруты: `php artisan route:list`
 
-- создать рулю: `php artisan make:rule Uppercase`
+- создать рулю: `php artisan make:rule TimeZone`
 - перезагурзить кеш при изменениях в .evn `php artisan config:cache`
 - cоздать посредника `php artisan make:middleware Connexion\Messenger\newMessage`
 - создать отпровителя email `php artisan make:mail FeedbackEmail`
-- cоздать request `php artisan make:request Connexion\Messenger\NewMessageRequest`
+- cоздать request `php artisan make:request TimeZoneRequest`
 - создать контроллер `php artisan make:controller HomeController`
 - cоздать ресурсный контроллер:`php artisan make:controller Connexion\Messenger\MessagesController --resource --model=Models/Connexion/Messenger/Messages`
 - Создать  модель: `php artisan make:model Models/Connexion/Messenger/Messenges`
+- Создать исключение `php artisan make:exception Connexion/Messenger/CategoryNotFoundException`
 
 
 ####МИГРАЦИИ

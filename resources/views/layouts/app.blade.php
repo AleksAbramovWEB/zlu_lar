@@ -39,5 +39,6 @@
             </div>
         </main>
     </div>
+    @include('layouts.includes.script')
 </body>
 </html>

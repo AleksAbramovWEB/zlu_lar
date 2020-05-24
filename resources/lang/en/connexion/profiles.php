@@ -1,6 +1,7 @@
 <?php
 
     return [
+      'was_for_an_hour' => 'was for an hour',
       'yesterday' => 'yesterday',
       'today' => 'today',
       'was' => 'was',

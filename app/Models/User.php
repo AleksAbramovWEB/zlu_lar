@@ -6,6 +6,7 @@ use App\Components\MainHelper;
 use App\Models\Geo\GeoCities;
 use App\Models\Geo\GeoCountries;
 use App\Models\Geo\GeoRegions;
+use App\Traits\LocalTimestamps;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -78,6 +79,16 @@ class User extends Authenticatable
 {
     use Notifiable;
     use SoftDeletes;
+    use LocalTimestamps;
+
+    public $timestamps = true;
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'last_time',
+        'deleted_at'
+    ];
 
 
     protected $table = 'users';
@@ -161,23 +172,13 @@ class User extends Authenticatable
      * @return string|null
      */
     public function getOnline(){
-        if (empty($this->last_time)) return NULL;
-        $time = strtotime($this->last_time);
-        $now_date = Carbon::now()->toDateString();
-        $minutes_ago = Carbon::now()->subMinutes(15)->toDateTimeString();
-        $day_ago_date = Carbon::now()->subDay()->toDateString();;
 
-        if (strtotime($minutes_ago) < $time) return 'online';
-        else {
-            if ($this->last_time == $day_ago_date) $date = __('connexion/profiles.yesterday');
-            elseif($this->last_time == $now_date) $date = __('connexion/profiles.today');
-            else  $date = date('d.m.Y', $time);
-            $was = __('connexion/profiles.was');
-            $at = __('connexion/profiles.at');
-            $minutes = date('H:i', $time);
-
-            return "$was $date $at $minutes";
-        }
+        return $this->returnTimeFormat(
+            $this->last_time_local,
+            15, 'online',
+            60, __('connexion/profiles.was_for_an_hour'),
+            __('connexion/profiles.was')
+        );
     }
 
     /**

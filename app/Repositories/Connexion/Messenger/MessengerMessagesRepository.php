@@ -27,13 +27,22 @@
          * @return Collection
          */
         public function GetIdContactByUserId($contact1, $contact2){
+
             $result =    $this->startCondition()
                          ->where([['contact_from', $contact1], ['contact_to', $contact2]])
                          ->orWhere([['contact_from', $contact2], ['contact_to', $contact1]])
                          ->orderBy('id', 'DESC')
                          ->paginate(20);
+
+                        // cтавим пометку  о прочтении
+                        $this->startCondition()
+                        ->where([['contact_from', $contact2], ['contact_to', $contact1], ['viewed', 0]])
+                        ->update(['viewed'=> 1]);
+
             return $result;
         }
+
+
 
 
 

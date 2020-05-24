@@ -53,13 +53,13 @@ return [
     | User Providers
     |--------------------------------------------------------------------------
     |
-    | All authentication drivers have a user provider. This defines how the
-    | users are actually retrieved out of your database or other storage
-    | mechanisms used by this application to persist your user's data.
-    |
-    | If you have multiple user tables or models you may configure multiple
-    | sources which represent each model / table. These sources may then
-    | be assigned to any extra authentication guards you have defined.
+    | У всех драйверов аутентификации есть пользовательский провайдер. Это определяет, как
+    | пользователи фактически извлекаются из вашей базы данных или другого хранилища
+    | механизмы, используемые этим приложением для сохранения данных вашего пользователя.
+    |
+    | Если у вас есть несколько пользовательских таблиц или моделей, вы можете настроить несколько
+    | источники, которые представляют каждую модель / таблицу. Эти источники могут затем
+    | быть назначенным для любых дополнительных охранников аутентификации, которые вы определили.
     |
     | Supported: "database", "eloquent"
     |
@@ -71,10 +71,9 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+//         'users' => [
+//             'driver' => 'riak',
+//         ],
     ],
 
     /*

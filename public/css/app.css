@@ -10947,3 +10947,55 @@ a:hover {
   border: white 1px solid;
 }
 
+.messenger_contact .view {
+  width: 20px;
+  height: 20px;
+  margin-left: 20px;
+}
+
+.messenger_contact .message_is_viewed {
+  background: url("/img/svg/check2.svg") no-repeat;
+  background-size: 100% 100%;
+}
+
+.messenger_contact .message_is_not_viewed {
+  background: url("/img/svg/check1.svg") no-repeat;
+  background-size: 100% 100%;
+}
+
+.messenger_contact .add_photo {
+  width: 40px;
+  height: 40px;
+}
+
+.messenger_contact .add_photo svg {
+  fill: white;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.messenger_contact .add_photo:hover svg {
+  fill: #6c757d;
+}
+
+.contacts_list .avatars {
+  max-width: 100px;
+  min-width: 100px;
+  height: 130px;
+  border: white 1px solid;
+}
+
+.contacts_list .disabled {
+  text-decoration: none;
+  cursor: default;
+}
+
+.contacts_list .no_contacts {
+  margin-bottom: 40px;
+  margin-top: 40px;
+  height: 40vh;
+  width: 100%;
+  background: url("/img/svg/messeger_girl.svg") no-repeat;
+  background-size: 100% 100%;
+}
+

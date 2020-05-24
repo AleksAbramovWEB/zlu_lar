@@ -25,6 +25,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+//        \Auth::provider('riak', function ($app, array $config) {
+//            // Return an instance of Illuminate\Contracts\Auth\UserProvider...
+//
+//            return new RiakUserProvider($app->make('riak.connection'));
+//        });
     }
 }

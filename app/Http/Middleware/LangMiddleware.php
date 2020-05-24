@@ -33,8 +33,8 @@ class LangMiddleware
     public function handle($request, Closure $next)
     {
 
-        $this->languages = (require base_path()."/config/app.php")['locales'];
-        $this->langDefault = (require base_path()."/config/app.php")['locale'];
+        $this->languages =  config('app.locales');
+        $this->langDefault = config('app.locale');
 
         $locale = $request->route('locale');
 

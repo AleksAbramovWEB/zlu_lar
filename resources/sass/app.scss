@@ -4,6 +4,9 @@
 // Variables
 @import 'variables';
 
+// примеси
+//@import "mixins";
+
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
@@ -13,4 +16,5 @@
 // файлы проекта
 @import "connexion/profile";
 @import "connexion/profiles_search";
-@import "connexion/messenger_contact";
+@import "connexion/messenger/messenger_contact";
+@import "connexion/messenger/contacts_list";

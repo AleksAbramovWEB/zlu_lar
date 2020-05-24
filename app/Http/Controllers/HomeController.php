@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Home\FeedBackRequest;
 use App\Components\UserSeeder;
+use App\Http\Requests\Home\TimeZoneRequest;
 use App\Repositories\Geo\GeoCountriesRepository;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
@@ -41,10 +42,12 @@ class HomeController extends Controller
         else back()->withErrors('email_error');
     }
 
-    public function polygon(){
-
-
-
+    /**
+     * сохраняем в сессию тайм-зону из блаузера
+     * @param TimeZoneRequest $request
+     */
+    public function timezone(TimeZoneRequest $request){
+        $request->session()->put('timezone', $request->timezone);
     }
 
 

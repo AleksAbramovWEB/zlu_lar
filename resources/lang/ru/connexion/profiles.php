@@ -1,6 +1,7 @@
 <?php
 
     return [
+      'was_for_an_hour' => 'был(а) в течении часа',
       'yesterday' => 'вчера',
       'today' => 'сегодня',
       'was' => 'был(а)',
