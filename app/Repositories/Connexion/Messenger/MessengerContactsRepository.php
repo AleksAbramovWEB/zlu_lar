@@ -7,7 +7,7 @@
     use App\Exceptions\Connexion\Messenger\CategoryNotFoundException;
     use App\Models\Connexion\Messenger\Contacts;
     use App\Repositories\CoreRepository;
-
+    use Carbon\Carbon;
 
 
     class MessengerContactsRepository extends CoreRepository
@@ -164,6 +164,42 @@
                        ->toBase()
                        ->first();
             return $contact;
+        }
+
+        /**
+         * получаем количество созданных пользователем новых контактов за сутки
+         * @return int
+         */
+        public function getCountNewContactsForDay(){
+            $where = [
+                ['user_id', '<>', \Auth::id()],
+                ['user_creator', \Auth::id()],
+                ['created_at', '>', Carbon::now()->subDay()->toDateTimeString()]
+            ];
+            $count = $this->startCondition()
+                             ->where($where)
+                             ->count();
+            return $count;
+        }
+
+        /**
+         * проврека наличие новых сообщений от фаворитов
+         * @return bool
+         */
+        public function existMessageFromFavorites(){
+            $count =   $this->startCondition()
+                            ->where('user_id', \Auth::id())
+                            ->where('category', 'list_of_favorites')
+                            ->where( function ($query){
+                                $query->select(\DB::raw('count(*)'))
+                                      ->from('messenger_messages')
+                                      ->whereColumn('messenger_messages.contact_to', 'messenger_contacts.id')
+                                      ->where('viewed', 0)
+                                      ->limit(1);
+                            }, '>', 0)
+                            ->count();
+            if ($count > 0) return true;
+            return false;
         }
 
 

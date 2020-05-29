@@ -28,7 +28,12 @@
             return self::num_word($value, $words[]);
         }
         public function users($value){
-            $words = [ __('declination.user_1'),__('declination.user_3'),__('declination.user_3'), ];
+            $words = [ __('declination.user_1'),__('declination.user_2'),__('declination.user_3'), ];
+            return self::num_word($value, $words);
+        }
+
+        public function contacts($value){
+            $words = [ __('declination.contact_1'),__('declination.contact_2'),__('declination.contact_3'), ];
             return self::num_word($value, $words);
         }
 

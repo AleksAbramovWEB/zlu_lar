@@ -31,6 +31,15 @@
             $result =    $this->startCondition()
                          ->where([['contact_from', $contact1], ['contact_to', $contact2]])
                          ->orWhere([['contact_from', $contact2], ['contact_to', $contact1]])
+                         ->with([
+                             'attach_photos' => function ($query){
+                                 $query->with([
+                                     'photo' => function ($query){
+                                         $query->withTrashed();
+                                     }
+                                 ]);
+                             }
+                         ])
                          ->orderBy('id', 'DESC')
                          ->paginate(20);
 
@@ -40,6 +49,27 @@
                         ->update(['viewed'=> 1]);
 
             return $result;
+        }
+
+
+        public function countNewMessages($id = null){
+            if (is_null($id)) $id = \Auth::id();
+
+            $newMessages = $this->startCondition()
+                                ->select(\DB::raw('COUNT(*) AS new_messages'))
+                                ->join('messenger_contacts', 'messenger_contacts.id', '=', 'messenger_messages.contact_to')
+                                ->where([
+                                    ['messenger_contacts.user_id', $id],
+                                    ['messenger_messages.viewed', '0'],
+                                ])
+                                ->where(function ($query){
+                                    $query->where( 'messenger_contacts.category', 'list_of_favorites')
+                                          ->orWhere('messenger_contacts.category', 'main_list');
+                                })
+                                ->toBase()
+                                ->first();
+
+            return $newMessages->new_messages;
         }
 
 

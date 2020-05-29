@@ -7,6 +7,8 @@ use App\Models\Geo\GeoCities;
 use App\Models\Geo\GeoCountries;
 use App\Models\Geo\GeoRegions;
 use App\Traits\LocalTimestamps;
+use App\Traits\PropertyContainer;
+use App\Traits\S3FileWork;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -74,12 +76,17 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereDeletedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User withoutTrashed()
+ * @property-read mixed $created_at_local
+ * @property-read mixed $last_time_local
+ * @property-read mixed $path_s3
  */
 class User extends Authenticatable
 {
     use Notifiable;
     use SoftDeletes;
     use LocalTimestamps;
+    use PropertyContainer;
+    use S3FileWork;
 
     public $timestamps = true;
 
@@ -156,6 +163,18 @@ class User extends Authenticatable
 
 
     /**
+     ********************** служебные МЕТОДЫ ********************************************************************
+     */
+
+    public function hasVip()
+    {
+        if (Carbon::now() < $this->vip) return true;
+        return false;
+    }
+
+
+
+    /**
      ********************** VIEW МЕТОДЫ ********************************************************************
      */
 
@@ -209,6 +228,7 @@ class User extends Authenticatable
 //        $positions = ['domination', 'submission', 'switch'];
 //        dd($this->gender, $this->position);
 
+
         if ($this->avatar == "" || is_null($this->avatar)) {
             if ($this->gender == "man" && $this->position =="domination")
                 return "/img/svg/force/master.svg";
@@ -225,7 +245,7 @@ class User extends Authenticatable
         }elseif (is_null($this->gender) && is_null($this->avatar) && is_null($this->position))
             return "/img/svg/force/deleted.svg";
         else{
-            return \MainHelper::getFileS3($this->avatar);
+            return $this->getPathS3href($this->avatar);
         }
 
 

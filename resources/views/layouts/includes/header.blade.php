@@ -19,7 +19,12 @@
                     @endif
                 @else
                     <li class="nav-item dropdown">
-                        <a href="{{route('connexion.messenger')}}">сообщения</a>
+                        @php $newMessages = Auth::user()->getProperty('new_messages')  @endphp
+                        <a href="{{route('connexion.messenger')}}"
+                        @if($newMessages > 0) class="text-danger" @endif
+                        >
+                            сообщения: {{$newMessages}}
+                        </a>
                         <a href="{{route('connexion.my_profile', ['locale' => App::getLocale()])}}">{{ Auth::user()->name }}</a>
                         <a href="{{ route('logout') }}"
                             onclick="event.preventDefault();

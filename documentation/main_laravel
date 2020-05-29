@@ -19,21 +19,21 @@
 - версия laravel: `php artisan -v`
 - показать все маршруты: `php artisan route:list`
 
-- создать рулю: `php artisan make:rule TimeZone`
+- создать рулю: `php artisan make:rule ExistUserPhotoMesseger`
 - перезагурзить кеш при изменениях в .evn `php artisan config:cache`
-- cоздать посредника `php artisan make:middleware Connexion\Messenger\newMessage`
+- cоздать посредника `php artisan make:middleware Connexion\Messenger\attachPhoto`
 - создать отпровителя email `php artisan make:mail FeedbackEmail`
-- cоздать request `php artisan make:request TimeZoneRequest`
+- cоздать request `php artisan make:request Connexion/Messenger/PhotoDeleteMessengerRequest`
 - создать контроллер `php artisan make:controller HomeController`
-- cоздать ресурсный контроллер:`php artisan make:controller Connexion\Messenger\MessagesController --resource --model=Models/Connexion/Messenger/Messages`
-- Создать  модель: `php artisan make:model Models/Connexion/Messenger/Messenges`
+- cоздать ресурсный контроллер:`php artisan make:controller Connexion\Messenger\PhotosController --resource --model=Models/Connexion/Messenger/Photos`
+- Создать  модель: `php artisan make:model Models/Connexion/Messenger/PhotoSend`
 - Создать исключение `php artisan make:exception Connexion/Messenger/CategoryNotFoundException`
 
 
 ####МИГРАЦИИ
 - Создать миграцию и модель: `php artisan make:model Models/BlogCategory -m`
 - Создать миграцию:
-- `php artisan make:migration create_messenger_messages_table`
+- `php artisan make:migration create_messenger_photo_send_table`
 - php artisan make:`migration create_users_table --create=users`
 - php artisan make:`migration add_votes_to_users_table --table=users`
 - Запуск миграции: `php artisan migrate`
@@ -45,7 +45,7 @@
 - Бросить все столы и мигрировать: `php artisan migrate:fresh`
 - Рефреш с сидами:  `php artisan migrate: refresh --seed`
 
-- cоздать сервис провайдер: `php artisan make:provider RiakServiceProvider`
+- cоздать сервис провайдер: `php artisan make:provider ConexionServiceProvider`
 - создать обсервер: php artisan make:observer BlogCategoryObserver --model=Models\BlogCategory
 - Создать миграцию и модель: php artisan make:model Models/BlogCategory -m
 - Миграция в bd: php artisan migrate

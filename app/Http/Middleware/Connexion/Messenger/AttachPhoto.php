@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Middleware\Connexion;
+namespace App\Http\Middleware\Connexion\Messenger;
 
-use Carbon\Carbon;
 use Closure;
 
-class UserOnline
+class AttachPhoto
 {
     /**
      * Handle an incoming request.
@@ -16,11 +15,9 @@ class UserOnline
      */
     public function handle($request, Closure $next)
     {
-        if (\Auth::check()){
-            $user = \Auth::user();
-            $user->timestamps = false;
-            $user->update(['last_time' => Carbon::now()->toDateTimeString()]);
-        }
+        if (!\Auth::user()->hasVip() AND config('bz.attach_photo_vip') === true)
+            return redirect()->route("connexion.messenger.notice", ['code' => 3])->with('notice', true);
+
         return $next($request);
     }
 }

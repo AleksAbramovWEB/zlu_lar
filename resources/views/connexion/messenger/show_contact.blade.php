@@ -31,21 +31,30 @@
                         <form class="col" action="{{route("connexion.messenger.new_message", ['id' => $contact->id])}}" method="POST">
                              @method('post')
                              @csrf
-                                <textarea rows="3"
+
+                             <div class="row flex-wrap ml-1 mr-1">
+                                 @foreach($attach_photos AS $attach_photo)
+                                     @php /** @var App\Models\Connexion\Messenger\Photos  $attach_photo */ @endphp
+                                     <input type="hidden" name="photo_{{$attach_photo->id}}" value="{{$attach_photo->id}}">
+                                     <div class="attach_photo m-1">
+                                         <img src="{{$attach_photo->path_s3}}" >
+                                     </div>
+                                 @endforeach
+                             </div>
+                             <textarea rows="3"
                                        name="message"
                                        type="text"
-                                       class="form-control {{MainHelper::is_valid_form('message')}}"
+                                       class="w-100 form-control {{MainHelper::is_valid_form('message')}}"
                                        placeholder="{{__('home/feedback.message')}}"
                                        required
                              ></textarea>
                              <div class="row mt-2">
                                  <div class="col">
-                                     <a href="">
+                                     <a href="{{route('connexion.messenger.photos.show', ['photo' => $contact->id])}}">
                                          <div class="add_photo">
                                              @include('connexion.messenger.includes.fpg_svg')
                                          </div>
                                      </a>
-
                                  </div>
                                  <div class="col"></div>
                                  <div class="col">
@@ -73,11 +82,18 @@
                         </div>
                         <div class="col text-right">{{$message->my_time()}}</div>
                     </div>
+                    @if(!$message->attach_photos->isEmpty())
+                        @foreach($message->attach_photos AS $photos_in_message)
+                        @php /** @var App\Models\Connexion\Messenger\PhotoSend  $photos_in_message */ @endphp
+                        <div class="photos_in_message m-3">
+                            <img src="{{$photos_in_message->photo->path_s3}}">
+                        </div>
+                        @endforeach
+                    @endif
                     <div class="text-justify mt-2">{{$message->message}}</div>
                 </div>
             </div>
             @endforeach
-
             {{$messages->links('blades.my_paginator')}}
         @endif
     </div>

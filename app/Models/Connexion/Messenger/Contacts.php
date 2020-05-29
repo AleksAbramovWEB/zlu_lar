@@ -30,6 +30,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Connexion\Messenger\Contacts withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Connexion\Messenger\Contacts withoutTrashed()
  * @mixin \Eloquent
+ * @property-read \App\Models\User $to_user_contact
+ * @property-read \App\Models\User $to_user_creator
+ * @property-read \App\Models\User $to_user_id
  */
 class Contacts extends Model
 {

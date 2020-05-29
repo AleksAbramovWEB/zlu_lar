@@ -3,16 +3,19 @@
 namespace App\Http\Controllers\Connexion\Messenger;
 
 use App\Exceptions\Connexion\Messenger\CategoryNotFoundException;
-use App\Http\Requests\Connexion\Messenger\NewContactRequest as NewContactRequestAlias;
+use App\Http\Requests\Connexion\Messenger\NewContactRequest;
 use App\Models\Connexion\Messenger\Contacts;
 use App\Repositories\Connexion\Messenger\MessengerContactsRepository;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
+
 
 class ContactsController extends MessengerBaseController
 {
 
-    public function  all_lists(){
+    public function  all_lists(MessengerContactsRepository $repository){
+        if ($repository->existMessageFromFavorites())
+            return redirect()->route('connexion.messenger.list_of_favorites');
+
         return redirect()->route('connexion.messenger.main_list');
     }
 
@@ -40,11 +43,11 @@ class ContactsController extends MessengerBaseController
 
     /**
      * Создание нового диалога.
-     * @param NewContactRequestAlias $request
+     * @param NewContactRequest      $request
      * @param Contacts               $contacts
      * @return void
      */
-    public function new_contact(NewContactRequestAlias $request, Contacts $contacts)
+    public function new_contact(NewContactRequest $request, Contacts $contacts)
     {
         $time = Carbon::now()->toDateTimeString();
 
@@ -106,5 +109,10 @@ class ContactsController extends MessengerBaseController
                  ->delete();
 
         return back();
+    }
+
+    public function notice($code){
+        if (!\Session::has('notice')) abort(404);
+        return view('connexion.messenger.notice', ['code' => $code]);
     }
 }

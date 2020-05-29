@@ -2,6 +2,7 @@
 
 namespace App\Models\Connexion\Messenger;
 
+use App\Models\Geo\GeoCountries;
 use App\Traits\LocalTimestamps;
 use Carbon\Carbon;
 use Carbon\Traits\Timestamp;
@@ -30,6 +31,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Connexion\Messenger\Messages withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Connexion\Messenger\Messages withoutTrashed()
  * @mixin \Eloquent
+ * @property int $viewed
+ * @property-read mixed $created_at_local
+ * @property-read mixed $last_time_local
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Connexion\Messenger\Messages whereViewed($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Connexion\Messenger\PhotoSend[] $attach_photos
+ * @property-read int|null $attach_photos_count
  */
 class Messages extends Model
 {
@@ -44,6 +51,19 @@ class Messages extends Model
     ];
 
     protected $table = 'messenger_messages';
+
+    protected $fillable = ['contact_from', 'contact_to', 'message'];
+
+    /**
+     ********************** СВЯЗИ ***************************************************************************
+     */
+
+
+    public function attach_photos()
+    {
+        return $this->hasMany(PhotoSend::class,'message_id' ,'id');
+    }
+
 
     /************************* МОИ МЕТОДЫ ********************************************/
 

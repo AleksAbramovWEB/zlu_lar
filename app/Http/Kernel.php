@@ -3,6 +3,8 @@
 namespace App\Http;
 
 
+
+
 use App\Http\Middleware\UserOnline;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -40,7 +42,6 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\LangMiddleware::class,
-            \App\Http\Middleware\Connexion\UserOnline::class
         ],
 
         'api' => [
@@ -71,6 +72,10 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         // для сообщений
         'new.contact' => \App\Http\Middleware\Connexion\Messenger\NewContact::class,
-        'new.message' => \App\Http\Middleware\Connexion\Messenger\NewMessage::class
+        'new.message' => \App\Http\Middleware\Connexion\Messenger\NewMessage::class,
+        'attach.photo.vip' => \App\Http\Middleware\Connexion\Messenger\AttachPhoto::class,
+        // оповешения профиля
+        'user.alert' => \App\Http\Middleware\Connexion\UserAlert::class
     ];
+
 }

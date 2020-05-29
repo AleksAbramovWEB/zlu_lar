@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 7.11.0 on 2020-05-20 21:10:19.
+ * Generated for Laravel 7.11.0 on 2020-05-28 14:21:12.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -15413,6 +15413,17 @@ namespace App\Facades {
         {
                         /** @var \App\Components\Declination $instance */
                         return $instance->users($value);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function contacts($value)
+        {
+                        /** @var \App\Components\Declination $instance */
+                        return $instance->contacts($value);
         }
          
     }

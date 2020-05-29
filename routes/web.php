@@ -48,20 +48,25 @@ use Illuminate\Support\Facades\Route;
                 Route::get('/update/{id}/list_of_favorites/contact', 'ContactsController@update_to_list_of_favorites')->name('connexion.messenger.update.contact.to_list_of_favorites');
                 Route::get('/update/{id}/black_list/contact', 'ContactsController@update_to_black_list')->name('connexion.messenger.update.contact.to_black_list');
                 Route::get('/destroy/{id}/contact', 'ContactsController@destroy')->name('connexion.messenger.destroy.contact');
+                Route::get('/notice/{code}', 'ContactsController@notice')->name('connexion.messenger.notice');
                 // показ контакта с сообшениями
                 Route::get('/contact/{id}', 'MessagesController@show_contact_with_massages')->name('connexion.messenger.show_contact');
                 Route::post('/new_message/{id}', 'MessagesController@new_message')->name('connexion.messenger.new_message')->middleware('new.message');
+                // фото для месседжера
+                Route::group(['middleware' =>['attach.photo.vip']], function (){
+                    Route::post('photos/attach/{id}', 'PhotosController@attach')->name('connexion.messenger.photos.attach');
+                    Route::delete('/photos/destroy','PhotosController@destroy')->name('connexion.messenger.photos.destroy');
+                    $method = ['show', 'store'];
+                    Route::resource('/photos', 'PhotosController')->only($method)->names('connexion.messenger.photos');
+                });
             });
-
-//            $method = ['edit', 'store', 'update', 'create', 'destroy'];
-//            Route::resource('profiles', 'UserController')->only($method)->names('connexion.profiles');
         });
     };
 
 
-    Route::group(['domain' => '{locale}.bdsmzlu.club'], $mainGlobalGroup);
+    Route::group(['domain' => '{locale}.bdsmzlu.club', 'middleware' =>['user.alert'],], $mainGlobalGroup);
 
-    Route::group(['domain' => 'bdsmzlu.club'], $mainGlobalGroup);
+    Route::group(['domain' => 'bdsmzlu.club', 'middleware' =>['user.alert'],], $mainGlobalGroup);
 
 
 

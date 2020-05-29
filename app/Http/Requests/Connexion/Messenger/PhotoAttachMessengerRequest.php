@@ -2,11 +2,12 @@
 
 namespace App\Http\Requests\Connexion\Messenger;
 
+
 use App\Rules\ExistUserPhotoMessenger;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 
-class NewMessageRequest extends FormRequest
+class PhotoAttachMessengerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,27 +22,22 @@ class NewMessageRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
      * @param Request $request
+     *
      * @return array
      */
     public function rules(Request $request)
     {
         $photos = $request->input();
-        unset($photos['_token']); unset($photos['_method']);unset($photos['message']);
+        unset($photos['_token']); unset($photos['_method']);
+        if (empty($photos)) return [];
 
-        $rules['message'] = ['required', 'max:3000'];
-        if (empty($photos)) return $rules;
-
+        $roles = [];
         foreach ($photos as $key => $val)
             $roles[$key] = ['required', new ExistUserPhotoMessenger()];
 
-        return $rules;
+
+        return $roles;
     }
-
-
-
-
-
-
-
 }
