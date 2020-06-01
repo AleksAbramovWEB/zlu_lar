@@ -21,19 +21,19 @@
 
 - создать рулю: `php artisan make:rule ExistUserPhotoMesseger`
 - перезагурзить кеш при изменениях в .evn `php artisan config:cache`
-- cоздать посредника `php artisan make:middleware Connexion\Messenger\attachPhoto`
+- cоздать посредника `php artisan make:middleware Connexion\Photos\CommentForPhoto`
 - создать отпровителя email `php artisan make:mail FeedbackEmail`
-- cоздать request `php artisan make:request Connexion/Messenger/PhotoDeleteMessengerRequest`
-- создать контроллер `php artisan make:controller HomeController`
-- cоздать ресурсный контроллер:`php artisan make:controller Connexion\Messenger\PhotosController --resource --model=Models/Connexion/Messenger/Photos`
-- Создать  модель: `php artisan make:model Models/Connexion/Messenger/PhotoSend`
+- cоздать request `php artisan make:request Connexion/Photos/LikePhotoRequest`
+- создать контроллер `php artisan make:controller Connexion\Photos\PhotosLikesController`
+- cоздать ресурсный контроллер:`php artisan make:controller Connexion\Photos\PhotosCommentController --resource --model=Models/Connexion/Photos/PhotosComment`
+- Создать  модель: `php artisan make:model Models/Connexion/Photos/PhotosLikes`
 - Создать исключение `php artisan make:exception Connexion/Messenger/CategoryNotFoundException`
 
 
 ####МИГРАЦИИ
 - Создать миграцию и модель: `php artisan make:model Models/BlogCategory -m`
 - Создать миграцию:
-- `php artisan make:migration create_messenger_photo_send_table`
+- `php artisan make:migration create_photos_comment_table`
 - php artisan make:`migration create_users_table --create=users`
 - php artisan make:`migration add_votes_to_users_table --table=users`
 - Запуск миграции: `php artisan migrate`

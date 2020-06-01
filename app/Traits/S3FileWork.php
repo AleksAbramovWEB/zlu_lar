@@ -29,6 +29,17 @@
             return $address;
         }
 
+        private function S3removeFile(string $path)
+        {
+            \Storage::disk('s3')->delete($path);
+        }
+
+
+
+        /**
+         * мутатор для моделей
+         * @return string|null
+         */
         public function getPathS3Attribute()
         {
             if ($this->path)
@@ -38,7 +49,11 @@
         }
 
 
-
+        /**
+         * получение ссылки на приватный репозиторий
+         * @param $path
+         * @return string
+         */
         private function getPathS3href($path){
             $client = \Storage::disk('s3')->getDriver()->getAdapter()->getClient();
             $bucket = \Config::get('filesystems.disks.s3.bucket');
@@ -49,5 +64,7 @@
             $request = $client->createPresignedRequest($command, '+20 minutes');
             return  (string)$request->getUri();
         }
+
+
 
     }

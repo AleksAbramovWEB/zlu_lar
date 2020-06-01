@@ -11068,3 +11068,52 @@ a:hover {
   background-size: 100% 100%;
 }
 
+.photos_index img {
+  max-width: 100%;
+  min-width: 100%;
+  height: auto;
+}
+
+.photos_show .photo {
+  max-width: 100%;
+  max-height: 70vh;
+}
+
+.photos_show #like {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.photos_show .no_like {
+  fill: white;
+}
+
+.photos_show .no_like:hover {
+  fill: #d1d1d1;
+}
+
+.photos_show .is_like {
+  fill: red;
+}
+
+.photos_show .is_like:hover {
+  fill: #aa0000;
+}
+
+.photos_show .avatars {
+  max-width: 100px;
+  min-width: 100px;
+  height: 130px;
+  border: white 1px solid;
+}
+
+.photos_show .comment {
+  min-height: 60%;
+}
+
+.photos_edit .photo {
+  max-width: 100%;
+  max-height: 70vh;
+}
+

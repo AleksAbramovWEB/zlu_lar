@@ -42,26 +42,27 @@
         // отображение времени
         private function returnTimeFormat($timestamp, int $oneTime, string $oneTitle, int $twoTime, string $twoTitle,string $start = '')
         {
+            if ($start !== '') $start.= ' ';
             if (is_null($timestamp)) return NULL;
 
             $carbonNowTimeZone = Carbon::now()->timezone($this->getLocalTimeZone());
 
             $time = $timestamp->toDateTimeString();
+            $data = $timestamp->toDateString();
 
             $now_date = $carbonNowTimeZone->toDateString();
             $one_minutes_ago = $carbonNowTimeZone->subMinutes($oneTime)->toDateTimeString();
             $ten_minutes_ago = $carbonNowTimeZone->subMinutes($twoTime)->toDateTimeString();
             $day_ago_date = $carbonNowTimeZone->subDay()->toDateString();
 
-            if ($one_minutes_ago < $time) return $oneTitle;
-            else if ($ten_minutes_ago < $time) return $twoTitle;
+            if ($one_minutes_ago < $time)return $oneTitle;
+            else if ($ten_minutes_ago < $time)return $twoTitle;
             else {
-                if ($time == $day_ago_date) $date = __('connexion/profiles.yesterday');
-                else if ($time == $now_date) $date = __('connexion/profiles.today');
+                if ($data == $day_ago_date) $date = __('connexion/profiles.yesterday');
+                else if ($data == $now_date) $date = __('connexion/profiles.today');
                 else  $date = $timestamp->format('d.m.Y');
                 $at = __('connexion/profiles.at');
                 $minutes = $timestamp->format('H:i');
-                if ($start !== '') $start.= ' ';
                 return "$start$date $at $minutes";
             }
         }

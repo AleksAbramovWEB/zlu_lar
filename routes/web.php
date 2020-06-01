@@ -42,7 +42,7 @@ use Illuminate\Support\Facades\Route;
                 Route::get('/list_of_favorites', 'ContactsController@list_of_favorites')->name('connexion.messenger.list_of_favorites');
                 Route::get('/black_list', 'ContactsController@black_list')->name('connexion.messenger.black_list');
                 // cоздание нового контакта или редирект в существующий
-                Route::post('/new_contact', 'ContactsController@new_contact')->name('connexion.messenger.new_contact')->middleware('new.contact');
+                Route::post('/new_contact', 'ContactsController@new_contact')->name('connexion.messenger.new_contact')->middleware('messenger.new.contact');
                 // изменение категории контакта или удаление
                 Route::get('/update/{id}/main_list/contact', 'ContactsController@update_to_main_list')->name('connexion.messenger.update.contact.to_main_list');
                 Route::get('/update/{id}/list_of_favorites/contact', 'ContactsController@update_to_list_of_favorites')->name('connexion.messenger.update.contact.to_list_of_favorites');
@@ -51,13 +51,22 @@ use Illuminate\Support\Facades\Route;
                 Route::get('/notice/{code}', 'ContactsController@notice')->name('connexion.messenger.notice');
                 // показ контакта с сообшениями
                 Route::get('/contact/{id}', 'MessagesController@show_contact_with_massages')->name('connexion.messenger.show_contact');
-                Route::post('/new_message/{id}', 'MessagesController@new_message')->name('connexion.messenger.new_message')->middleware('new.message');
+                Route::post('/new_message/{id}', 'MessagesController@new_message')->name('connexion.messenger.new_message')->middleware('messenger.new.message');
                 // фото для месседжера
-                Route::group(['middleware' =>['attach.photo.vip']], function (){
+                Route::group(['middleware' =>['messenger.attach.photo.vip']], function (){
                     Route::post('photos/attach/{id}', 'PhotosController@attach')->name('connexion.messenger.photos.attach');
                     Route::delete('/photos/destroy','PhotosController@destroy')->name('connexion.messenger.photos.destroy');
                     $method = ['show', 'store'];
                     Route::resource('/photos', 'PhotosController')->only($method)->names('connexion.messenger.photos');
+                });
+            });
+            // фото пользователя
+            Route::group(['namespace' => 'photos'], function (){
+                Route::resource('/photos', 'PhotosController')->names('connexion.photos');
+                Route::group(['prefix' => 'photos'], function (){
+                    $method = ['store', 'destroy'];
+                    Route::resource('/comment', 'PhotosCommentController')->only($method)->names('connexion.photos.comment');
+                    Route::post('/like', 'PhotosLikesController@like')->name('connexion.photos.like');
                 });
             });
         });

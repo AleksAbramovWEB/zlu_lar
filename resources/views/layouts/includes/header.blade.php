@@ -19,6 +19,7 @@
                     @endif
                 @else
                     <li class="nav-item dropdown">
+                        <a href="{{route('connexion.photos.index')}}">мои фото</a>
                         @php $newMessages = Auth::user()->getProperty('new_messages')  @endphp
                         <a href="{{route('connexion.messenger')}}"
                         @if($newMessages > 0) class="text-danger" @endif
