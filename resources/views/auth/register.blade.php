@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
@@ -244,9 +246,7 @@
                                         class="form-control {{MainHelper::is_valid_form('about')}}"
                                         id="about"
                                         rows="5"
-                                        required>
-                                    {{old('about')}}
-                                </textarea>
+                                        required>{{old('about')}}</textarea>
                                 @error('about')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -261,9 +261,7 @@
                                         class="form-control {{MainHelper::is_valid_form('interests')}}"
                                         id="interests"
                                         rows="5"
-                                        required>
-                                    {{old('interests')}}
-                                </textarea>
+                                        required>{{old('interests')}}</textarea>
                                 @error('interests')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -278,9 +276,7 @@
                                         class="form-control {{MainHelper::is_valid_form('taboo')}}"
                                         id="taboo"
                                         rows="5"
-                                        required>
-                                    {{old('taboo')}}
-                                </textarea>
+                                        required>{{old('taboo')}}</textarea>
                                 @error('taboo')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

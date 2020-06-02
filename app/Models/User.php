@@ -94,7 +94,8 @@ class User extends Authenticatable
         'created_at',
         'updated_at',
         'last_time',
-        'deleted_at'
+        'deleted_at',
+        'birthday'
     ];
 
 

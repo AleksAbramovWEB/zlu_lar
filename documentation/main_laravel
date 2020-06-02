@@ -19,11 +19,11 @@
 - версия laravel: `php artisan -v`
 - показать все маршруты: `php artisan route:list`
 
-- создать рулю: `php artisan make:rule ExistUserPhotoMesseger`
+- создать рулю: `php artisan make:rule CheckOldPasswordRole`
 - перезагурзить кеш при изменениях в .evn `php artisan config:cache`
 - cоздать посредника `php artisan make:middleware Connexion\Photos\CommentForPhoto`
 - создать отпровителя email `php artisan make:mail FeedbackEmail`
-- cоздать request `php artisan make:request Connexion/Photos/LikePhotoRequest`
+- cоздать request `php artisan make:request Connexion/Users/UpdatePasswordUserRequest`
 - создать контроллер `php artisan make:controller Connexion\Photos\PhotosLikesController`
 - cоздать ресурсный контроллер:`php artisan make:controller Connexion\Photos\PhotosCommentController --resource --model=Models/Connexion/Photos/PhotosComment`
 - Создать  модель: `php artisan make:model Models/Connexion/Photos/PhotosLikes`

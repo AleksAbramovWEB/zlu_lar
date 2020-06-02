@@ -1,17 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Connexion;
+namespace App\Http\Requests\Connexion\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-/**
- * @property string greeting
- */
-
-class ChangeUserGreetingRequest extends FormRequest
+class ChangeUserAvatarRequest extends FormRequest
 {
-
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -31,7 +25,7 @@ class ChangeUserGreetingRequest extends FormRequest
     public function rules()
     {
         return [
-           'greeting' => 'min:3|max:255'
+            'avatar' => 'required|image|mimes:jpeg,jpg,png,gif|max:5000'
         ];
     }
 }

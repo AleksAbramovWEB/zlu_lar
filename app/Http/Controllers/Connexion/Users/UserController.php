@@ -1,12 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Connexion;
+namespace App\Http\Controllers\Connexion\Users;
 
 
-use App\Http\Requests\Connexion\ChangeUserAvatarRequest;
-use App\Http\Requests\Connexion\ChangeUserGreetingRequest;
+use App\Http\Controllers\Connexion\ConnexionBaseController;
+use App\Http\Requests\Connexion\Users\ChangeUserAvatarRequest;
+use App\Http\Requests\Connexion\Users\ChangeUserGreetingRequest;
+use App\Http\Requests\Connexion\Users\UpdatePasswordUserRequest;
+use App\Http\Requests\Connexion\Users\UpdateProfileUserRequest;
 use App\Models\User;
 use App\Repositories\Connexion\UserRepository;
+use App\Repositories\Geo\GeoCitiesRepository;
+use App\Repositories\Geo\GeoCountriesRepository;
+use App\Repositories\Geo\GeoRegionsRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -21,10 +27,10 @@ class UserController extends ConnexionBaseController
      *
      * @return Response
      */
-    public function my_profile(Request $request)
+    public function my_profile()
     {
         $user = \Auth::user();
-        return view('connexion.my_profile', compact('user'));
+        return view('connexion.users.my_profile', compact('user'));
     }
 
     /**
@@ -81,7 +87,7 @@ class UserController extends ConnexionBaseController
 
         if ($user[0]->id == \Auth::id()) return redirect()->route('connexion.my_profile');
 
-        return view('connexion.profile', ['user' => $user[0]]);
+        return view('connexion.users.profile', ['user' => $user[0]]);
     }
 
     /**
@@ -94,49 +100,67 @@ class UserController extends ConnexionBaseController
     public function profiles(Request $request, UserRepository $userRepository){
         $users = $userRepository->getUsersElForSearch($request);
         $users->appends($request->toArray())->links();
-        return view('connexion.profiles', compact('users'));
+        return view('connexion.users.profiles', compact('users'));
     }
 
-
-
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param User $user
-     *
-     * @return Response
-     */
-    public function show(User $user)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param User $user
+     * @param GeoCountriesRepository $geoCountriesRepository
+     * @param GeoRegionsRepository   $geoRegionsRepository
+     * @param GeoCitiesRepository    $geoCitiesRepository
      *
      * @return Response
      */
-    public function edit(User $user)
+    public function my_profile_edit(
+        GeoCountriesRepository $geoCountriesRepository,
+        GeoRegionsRepository $geoRegionsRepository,
+        GeoCitiesRepository $geoCitiesRepository
+    )
     {
-        //
+        $user = \Auth::user();
+        $countries = $geoCountriesRepository->getAllCountries();
+        $regions = $geoRegionsRepository->getAllRegionsByCountryId( (old('country'))? old('country') : $user->country);
+        $cities = $geoCitiesRepository->getAllCitiesByRegionId( (old('region')) ? old('region') : $user->region);
+        return view('connexion.users.settings.my_profile_edit',
+            compact('user', 'countries', 'regions', 'cities'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param User  $user
-     *
      * @return Response
      */
-    public function update(Request $request, User $user)
+    public function my_profile_update(UpdateProfileUserRequest $request)
     {
-        //
+        $data = $request->input();
+
+        if (\Auth::user()->hasVip())
+            $data['birthday'] = "{$data['year']}-{$data['month']}-{$data['day']} 00:00:00";
+
+        \Auth::user()->update($data);
+        return back()->with('success', true);
     }
+
+    public function my_profile_edit_password()
+    {
+        return view('connexion.users.settings.my_profile_edit_password');
+    }
+
+    /**
+     * Изменение пароля
+     * @param UpdatePasswordUserRequest $request
+     */
+    public function my_profile_update_password(UpdatePasswordUserRequest $request)
+    {
+        $user = \Auth::user();
+        $user->password = \Hash::make($request->password);
+        $user->save();
+        return back()->with('success', true);
+    }
+
 
     /**
      * Remove the specified resource from storage.

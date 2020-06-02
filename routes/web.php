@@ -22,18 +22,28 @@ use Illuminate\Support\Facades\Route;
 
         // знакомства
         Route::group(['namespace' => 'Connexion', 'prefix' => 'connexion'], function (){
-            // мой профиль
-            Route::group(['prefix' => 'my_profile', 'middleware' =>['auth']], function (){
-                Route::get('/', 'UserController@my_profile')->name('connexion.my_profile');
-                Route::post('/avatar', 'UserController@save_avatar')->name('connexion.my_profile.avatar');
-                Route::post('/avatar/remove', 'UserController@delete_avatar')->name('connexion.my_profile.avatar.remove');
-                Route::post('/greeting', 'UserController@change_greeting')->name('connexion.my_profile.greeting');
-                Route::post('/greeting/remove', 'UserController@delete_greeting')->name('connexion.my_profile.greeting.remove');
+
+            Route::group(['namespace' => 'Users'], function (){
+                // мой профиль
+                Route::group(['prefix' => 'my_profile', 'middleware' =>['auth']], function (){
+                    Route::get('/', 'UserController@my_profile')->name('connexion.my_profile');
+                    Route::post('/avatar', 'UserController@save_avatar')->name('connexion.my_profile.avatar');
+                    Route::post('/avatar/remove', 'UserController@delete_avatar')->name('connexion.my_profile.avatar.remove');
+                    Route::post('/greeting', 'UserController@change_greeting')->name('connexion.my_profile.greeting');
+                    Route::post('/greeting/remove', 'UserController@delete_greeting')->name('connexion.my_profile.greeting.remove');
+                    // настройки профиля
+                    Route::group(['prefix' => 'settings'], function (){
+                        Route::get('/', 'UserController@my_profile_edit')->name('connexion.my_profile.edit');
+                        Route::patch('/update', "UserController@my_profile_update")->name('connexion.my_profile.update');
+                        Route::get('/password', "UserController@my_profile_edit_password")->name('connexion.my_profile.edit.password');
+                        Route::patch('/password/update', "UserController@my_profile_update_password")->name('connexion.my_profile.edit.password.update');
+                    });
+                });
+                // профиль по id
+                Route::get('/profile/{id}', 'UserController@profile')->name('connexion.profile');
+                // по поиску
+                Route::get('/profiles', 'UserController@profiles')->name('connexion.profiles');
             });
-            // все профили
-            Route::get('/profile/{id}', 'UserController@profile')->name('connexion.profile');
-            // по поиску
-            Route::get('/profiles', 'UserController@profiles')->name('connexion.profiles');
             // месседжер
             Route::group(['prefix' => 'messenger', 'middleware' =>['auth'], 'namespace' => 'Messenger'], function (){
                 // показ контактов

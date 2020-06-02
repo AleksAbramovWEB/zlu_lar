@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Connexion;
+namespace App\Http\Requests\Connexion\Users;
 
+use App\Rules\CheckOldPasswordRole;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ChangeUserAvatarRequest extends FormRequest
+class UpdatePasswordUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +26,8 @@ class ChangeUserAvatarRequest extends FormRequest
     public function rules()
     {
         return [
-            'avatar' => 'required|image|mimes:jpeg,jpg,png,gif|max:5000'
+            'old_password'  => ['required', new CheckOldPasswordRole],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }
 }

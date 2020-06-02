@@ -1,6 +1,6 @@
 <script type="text/javascript">
-    $(document).ready(function() {
-        let csrf_token  = $("meta[name='csrf-token']").attr('content');
+
+    let csrf_token  = $("meta[name='csrf-token']").attr('content');
 
     @if(!session()->has('timezone'))
         let timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -13,5 +13,8 @@
             }
         })
     @endif
-    });
+
+
+
+
 </script>
