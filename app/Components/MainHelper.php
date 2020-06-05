@@ -54,6 +54,13 @@
             return (int)filter_var(($int), FILTER_SANITIZE_NUMBER_INT);
         }
 
+        public function exist_url($url){
+            $urlHeaders = get_headers($url);
+// проверяем ответ сервера на наличие кода: 200 - ОК
+            if(strpos($urlHeaders[0], '200')) return true;
+            else return false;
+        }
+
         /**
          * Получить ссылку на фаил s3
          * @param $path string путь на диске s3

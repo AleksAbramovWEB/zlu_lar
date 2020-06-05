@@ -23,6 +23,7 @@
 //            return self::num_word($value, $words[\App::getLocale()]);
 //        }
 
+
         public function hours($value){
             $words = [ __('declination.hour_1'),__('declination.hour_2'),__('declination.hour_3'), ];
             return self::num_word($value, $words[]);
@@ -34,6 +35,16 @@
 
         public function contacts($value){
             $words = [ __('declination.contact_1'),__('declination.contact_2'),__('declination.contact_3'), ];
+            return self::num_word($value, $words);
+        }
+
+        public function coins_bay($value){
+            $words = [ __('declination.coins_buy_1'),__('declination.coins_buy_2'),__('declination.coins_buy_3'), ];
+            return self::num_word($value, $words);
+        }
+
+        public function coins($value){
+            $words = [ __('declination.coins_1'),__('declination.coins_2'),__('declination.coins_3'), ];
             return self::num_word($value, $words);
         }
 

@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 7.11.0 on 2020-05-28 14:21:12.
+ * Generated for Laravel 7.11.0 on 2020-06-05 08:19:42.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -15373,6 +15373,17 @@ namespace App\Facades {
         }
         
         /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function exist_url($url)
+        {
+                        /** @var \App\Components\MainHelper $instance */
+                        return $instance->exist_url($url);
+        }
+        
+        /**
          * Получить ссылку на фаил s3
          *
          * @param $path string путь на диске s3
@@ -15424,6 +15435,28 @@ namespace App\Facades {
         {
                         /** @var \App\Components\Declination $instance */
                         return $instance->contacts($value);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function coins_bay($value)
+        {
+                        /** @var \App\Components\Declination $instance */
+                        return $instance->coins_bay($value);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function coins($value)
+        {
+                        /** @var \App\Components\Declination $instance */
+                        return $instance->coins($value);
         }
          
     }

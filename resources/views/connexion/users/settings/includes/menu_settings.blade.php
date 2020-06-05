@@ -10,6 +10,11 @@
             'label' => __('connexion/profiles.edit_password'),
             'blade' => 'connexion.my_profile.edit.password'
         ],
+        'kassa' => [
+            'href'  => route('kassa.index'),
+            'label' => __('kassa.replenish_account'),
+            'blade' => 'kassa.index'
+        ],
    ];
 
     $thisBlade = Route::current()->getName();

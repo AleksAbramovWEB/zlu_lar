@@ -20,6 +20,12 @@ use Illuminate\Support\Facades\Route;
         Route::get('/feedback', 'HomeController@feedback')->name('feedback');
         Route::post('/feedback', 'HomeController@feedbackSend')->name('feedback.post');
 
+        // Касса
+        Route::group(['prefix' => 'kassa'], function (){
+            Route::get("/", "KassaController@index")->name('kassa.index')->middleware('auth');
+            Route::post("send", "KassaController@send")->name('kassa.send')->middleware('auth');
+            Route::get('/test', "KassaController@test")->name('kassa.test');
+        });
         // знакомства
         Route::group(['namespace' => 'Connexion', 'prefix' => 'connexion'], function (){
 

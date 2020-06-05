@@ -11117,3 +11117,9 @@ a:hover {
   max-height: 70vh;
 }
 
+.kassa .kassa_label {
+  max-width: 80%;
+  height: auto;
+  cursor: pointer;
+}
+
