@@ -79,6 +79,8 @@ use Illuminate\Notifications\Notifiable;
  * @property-read mixed $created_at_local
  * @property-read mixed $last_time_local
  * @property-read mixed $path_s3
+ * @property-read mixed $deleted_at_local
+ * @property-read mixed $updated_at_local
  */
 class User extends Authenticatable
 {
@@ -95,7 +97,8 @@ class User extends Authenticatable
         'updated_at',
         'last_time',
         'deleted_at',
-        'birthday'
+        'birthday',
+        'vip'
     ];
 
 

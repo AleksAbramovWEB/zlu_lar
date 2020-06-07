@@ -26,6 +26,16 @@ use Illuminate\Support\Facades\Route;
             Route::post("send", "KassaController@send")->name('kassa.send')->middleware('auth');
             Route::get('/test', "KassaController@test")->name('kassa.test');
         });
+
+        // Админка
+        Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function (){
+            Route::get('/', "HomeController@index")->name('admin');
+            Route::group(['namespace' => 'Connexion', 'prefix' => 'connexion'], function (){
+                // подарки в знакоствах
+                Route::resource('/gifts', 'GiftsController')->except('show')->names('admin.connexion.gifts');
+            });
+
+        });
         // знакомства
         Route::group(['namespace' => 'Connexion', 'prefix' => 'connexion'], function (){
 
@@ -43,7 +53,13 @@ use Illuminate\Support\Facades\Route;
                         Route::patch('/update', "UserController@my_profile_update")->name('connexion.my_profile.update');
                         Route::get('/password', "UserController@my_profile_edit_password")->name('connexion.my_profile.edit.password');
                         Route::patch('/password/update', "UserController@my_profile_update_password")->name('connexion.my_profile.edit.password.update');
+                        Route::get('/vip', "UserController@my_profile_edit_vip")->name('connexion.my_profile.edit.vip');
+                        Route::patch('/vip/update', "UserController@my_profile_update_vip")->name('connexion.my_profile.update.vip');
                     });
+                });
+                // дарим подарки
+                Route::group(['prefix' => 'profile/give', 'middleware' =>['auth']], function (){
+                    Route::post("/gift", "GiftsForUserController@give_gifts")->name('connexion.profile.give.gift');
                 });
                 // профиль по id
                 Route::get('/profile/{id}', 'UserController@profile')->name('connexion.profile');

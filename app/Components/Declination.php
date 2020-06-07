@@ -7,26 +7,9 @@
     class Declination
     {
 
-//
-//        public function days($value){
-//            $words = ['ru' => ['день', 'дня', 'дней'], 'en' => ['day','days','days' ]];
-//            return self::num_word($value, $words[\App::getLocale()]);
-//        }
-//
-//        public function view($value){
-//            $words = ['ru' => ['просмотр', 'просмотра', 'просмотров'], 'en' => ['view','views','views' ]];
-//            return self::num_word($value, $words[\App::getLocale()]);
-//        }
-//
-//        public function time($value){
-//            $words = ['ru' => ['раз', 'раза', 'раз'], 'en' => ['time','times','times' ]];
-//            return self::num_word($value, $words[\App::getLocale()]);
-//        }
-
-
         public function hours($value){
             $words = [ __('declination.hour_1'),__('declination.hour_2'),__('declination.hour_3'), ];
-            return self::num_word($value, $words[]);
+            return self::num_word($value, $words);
         }
         public function users($value){
             $words = [ __('declination.user_1'),__('declination.user_2'),__('declination.user_3'), ];
@@ -45,6 +28,16 @@
 
         public function coins($value){
             $words = [ __('declination.coins_1'),__('declination.coins_2'),__('declination.coins_3'), ];
+            return self::num_word($value, $words);
+        }
+
+        public function days($value){
+            $words = [ __('declination.days_1'),__('declination.days_2'),__('declination.days_3'), ];
+            return self::num_word($value, $words);
+        }
+
+        public function minutes($value){
+            $words = [ __('declination.minutes_1'),__('declination.minutes_2'),__('declination.minutes_3'), ];
             return self::num_word($value, $words);
         }
 

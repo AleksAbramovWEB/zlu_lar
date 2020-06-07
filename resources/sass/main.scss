@@ -16,9 +16,17 @@ header {
 a {color: white;}
 a:hover {color: red;}
 
+
+.modal-content,
 .card {
     background-color:  rgba(0, 0, 0, 0.9);
     color: white;
+}
+
+.modal-content {
+    .close {
+        color: white;
+    }
 }
 
 .avatars {
@@ -38,6 +46,38 @@ a:hover {color: red;}
         left: 50%;
         transform: translate(-50%, -50%);
     }
+}
+.popover {
+    border: solid 1px white;
+    background-color: black;
+
+    .popover_avatar {
+        min-height: 70px;
+        min-width: 50px;
+    }
+    .question_user {
+        height: 60px;
+        width: 60px;
+    }
+
+}
+
+.popover-body {
+    color: #ffffff;
+    font-size: 0.8rem;
+
+}
+
+.bs-popover-top > .arrow::after, .bs-popover-auto[x-placement^=top] > .arrow::after {
+    bottom: 1px;
+    border-width: 0.5rem 0.5rem 0;
+    border-top-color: #000000;
+}
+
+.bs-popover-top > .arrow::before, .bs-popover-auto[x-placement^=top] > .arrow::before {
+    bottom: 0;
+    border-width: 0.5rem 0.5rem 0;
+    border-top-color: rgb(255, 255, 255);
 }
 
 

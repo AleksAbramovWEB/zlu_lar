@@ -10904,8 +10904,13 @@ a:hover {
   color: red;
 }
 
+.modal-content,
 .card {
   background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+}
+
+.modal-content .close {
   color: white;
 }
 
@@ -10929,8 +10934,102 @@ a:hover {
   transform: translate(-50%, -50%);
 }
 
+.popover {
+  border: solid 1px white;
+  background-color: black;
+}
+
+.popover .popover_avatar {
+  min-height: 70px;
+  min-width: 50px;
+}
+
+.popover .question_user {
+  height: 60px;
+  width: 60px;
+}
+
+.popover-body {
+  color: #ffffff;
+  font-size: 0.8rem;
+}
+
+.bs-popover-top > .arrow::after,
+.bs-popover-auto[x-placement^=top] > .arrow::after {
+  bottom: 1px;
+  border-width: 0.5rem 0.5rem 0;
+  border-top-color: #000000;
+}
+
+.bs-popover-top > .arrow::before,
+.bs-popover-auto[x-placement^=top] > .arrow::before {
+  bottom: 0;
+  border-width: 0.5rem 0.5rem 0;
+  border-top-color: white;
+}
+
 .profile .profile_avatar {
   min-height: 400px;
+}
+
+.profile .gifts {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-gap: 5px;
+  font-size: 0.8rem;
+}
+
+.profile .gifts label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+}
+
+.profile .gifts label img {
+  max-width: 100%;
+}
+
+.profile .gifts label .price {
+  display: none;
+  padding: 1px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: red;
+  border-radius: 0 0 0 50%;
+}
+
+.profile .gifts input:checked + label {
+  border: 1px solid red;
+}
+
+.profile .gifts input:checked + label .price {
+  display: block;
+}
+
+.profile .gifts input:disabled + label {
+  cursor: default;
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  filter: grayscale(100%);
+  -webkit-filter: gray;
+          filter: gray;
+}
+
+.profile .gifts_given {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 5px;
+}
+
+.profile .gifts_given .gift_given {
+  cursor: pointer;
+}
+
+.profile .gifts_given .gift_given img {
+  max-width: 100%;
 }
 
 .profiles_search .avatars {

@@ -31,6 +31,20 @@
             else return NULL;
         }
 
+        public function getDeletedAtLocalAttribute()
+        {
+            if ($this->deleted_at )
+                 return $this->deleted_at->timezone($this->getLocalTimeZone());
+            else return NULL;
+        }
+
+        public function getUpdatedAtLocalAttribute()
+        {
+            if ($this->updated_at)
+                 return $this->updated_at->timezone($this->getLocalTimeZone());
+            else return NULL;
+        }
+
         public function getLastTimeLocalAttribute()
         {
             if ($this->last_time)

@@ -2,4 +2,60 @@
     .profile_avatar {
         min-height: 400px;
     }
+
+    .gifts {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        grid-gap: 5px;
+        font-size: 0.8rem;
+        label {
+            display: block;
+            position: relative;
+            cursor: pointer;
+            img{
+                max-width: 100%;
+            }
+            .price {
+                display: none;
+                padding: 1px;
+                position: absolute;
+                right: 0;
+                top: 0;
+                background-color: red;
+                border-radius: 0 0 0 50%;
+            }
+        }
+
+        input:checked + label{
+            border: 1px solid red;
+            .price {
+                display: block;
+            }
+        }
+
+
+        input:disabled + label{
+            cursor: default;
+            -webkit-filter: grayscale(100%);
+            -moz-filter: grayscale(100%);
+            -ms-filter: grayscale(100%);
+            -o-filter: grayscale(100%);
+            filter: grayscale(100%);
+            filter: gray;
+        }
+    }
+
+    .gifts_given {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-gap: 5px;
+        .gift_given {
+            cursor: pointer;
+            img{
+                max-width: 100%;
+            }
+        }
+    }
+
+
 }

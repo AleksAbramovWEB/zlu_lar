@@ -19,21 +19,21 @@
 - версия laravel: `php artisan -v`
 - показать все маршруты: `php artisan route:list`
 
-- создать рулю: `php artisan make:rule KassaExistRole`
+- создать рулю: `php artisan make:rule GiftBayRole`
 - перезагурзить кеш при изменениях в .evn `php artisan config:cache`
 - cоздать посредника `php artisan make:middleware Connexion\Photos\CommentForPhoto`
 - создать отпровителя email `php artisan make:mail FeedbackEmail`
-- cоздать request `php artisan make:request Kassa/SendToKassaRequest`
-- создать контроллер `php artisan make:controller KassaController`
-- cоздать ресурсный контроллер:`php artisan make:controller Connexion\Photos\PhotosCommentController --resource --model=Models/Connexion/Photos/PhotosComment`
-- Создать  модель: `php artisan make:model Models/Kassa`
+- cоздать request `php artisan make:request Connexion/Users/GiveGiftForUserRequest`
+- создать контроллер `php artisan make:controller Connexion/Users/GiftsForUserController`
+- cоздать ресурсный контроллер:`php artisan make:controller Admin/Connexion/GiftsController --resource --model=Models/Connexion/Gifts/Gifts`
+- Создать  модель: `php artisan make:model Models/Connexion/Gifts/GiftsGiven`
 - Создать исключение `php artisan make:exception Kassa/CurrencyNotFoundException`
 
 
 ####МИГРАЦИИ
 - Создать миграцию и модель: `php artisan make:model Models/BlogCategory -m`
 - Создать миграцию:
-- `php artisan make:migration create_kassa_table`
+- `php artisan make:migration create_gifts_given_table`
 - php artisan make:`migration create_users_table --create=users`
 - php artisan make:`migration add_votes_to_users_table --table=users`
 - Запуск миграции: `php artisan migrate`

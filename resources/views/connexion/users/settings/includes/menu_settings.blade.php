@@ -1,4 +1,6 @@
 @php
+
+
    $menu = [
         'my_profile_edit' => [
             'href'  => route('connexion.my_profile.edit'),
@@ -15,6 +17,12 @@
             'label' => __('kassa.replenish_account'),
             'blade' => 'kassa.index'
         ],
+        'vip' => [
+            'href'  => route('connexion.my_profile.edit.vip'),
+            'label' => (\Auth::user()->vip > \Carbon\Carbon::now()) ? __('connexion/profiles.prolong_vip') : __('connexion/profiles.buy_vip'),
+            'blade' => 'connexion.my_profile.edit.vip'
+        ],
+
    ];
 
     $thisBlade = Route::current()->getName();

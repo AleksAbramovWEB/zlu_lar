@@ -10,23 +10,25 @@
     {
 
         //цена 1 коина в рублях без скидки
-        const COIN = 30;
+        private $coin;
 
         // курс валют по умолчанию
-        private $currencies = [
-            'USD' => 60
-        ];
+        private $currencies;
 
         // скидочный кофициент
-        private $discount = 0.1;
+        private $discount;
 
         // количество вариатов покупки коинов по количеству
-        private $bay_coins = [1, 5, 10, 20, 40, 80];
+        private $bay_coins;
 
 
 
         public function __construct()
         {
+            $this->coin = config('bz.coin');
+            $this->currencies = config('bz.currencies');
+            $this->discount = config('bz.discount');
+            $this->bay_coins = config('bz.bay_coins');
             $this->get_currencies();
         }
 
@@ -37,7 +39,7 @@
             $price = [];
             if($currency == 'RUB'){
                 foreach ($this->bay_coins as $buyCoin) {
-                    $price[$buyCoin] = round(($buyCoin * self::COIN) - (($buyCoin * self::COIN) * $discount), 2);
+                    $price[$buyCoin] = round(($buyCoin * $this->coin) - (($buyCoin * $this->coin) * $discount), 2);
                     $discount = $discount + $this->discount;
                 }
             }else{
@@ -46,8 +48,8 @@
 
                 foreach ($this->bay_coins as $buyCoin) {
                     $price[$buyCoin] = round(
-                        (($buyCoin * self::COIN) / $this->currencies[$currency]) -
-                        ((($buyCoin * self::COIN) / $this->currencies[$currency]) * $this->discount), 2);
+                        (($buyCoin * $this->coin) / $this->currencies[$currency]) -
+                        ((($buyCoin * $this->coin) / $this->currencies[$currency]) * $this->discount), 2);
                     $discount = $discount + $this->discount;
                 }
             }

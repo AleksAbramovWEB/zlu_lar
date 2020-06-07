@@ -19,7 +19,7 @@
         /**
          * @var User
          */
-        protected $model_user;
+        protected $model_user = NULL;
 
         protected $kassa_name;
 
@@ -36,7 +36,12 @@
 
             $this->price = (new PriseCoins())->get_prise($this->kassa_currency)['prise'];
 
-            $this->model_user = new User();
+        }
+
+        protected function get_user(){
+            if ($this->model_user === NULL)
+                $this->model_user = new User();
+            return $this->model_user;
         }
 
         abstract public function send_to_the_kassa($coins);

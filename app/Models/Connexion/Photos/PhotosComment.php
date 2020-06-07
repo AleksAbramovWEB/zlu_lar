@@ -29,6 +29,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read mixed $last_time_local
  * @property-read \App\Models\User|null $to_user_id
  * @property-read \App\Models\Connexion\Photos\Photos $to_photo_id
+ * @property-read mixed $deleted_at_local
+ * @property-read mixed $updated_at_local
  */
 class PhotosComment extends Model
 {

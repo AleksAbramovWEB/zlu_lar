@@ -28,6 +28,8 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property-read mixed $created_at_local
  * @property-read mixed $last_time_local
+ * @property-read mixed $deleted_at_local
+ * @property-read mixed $updated_at_local
  */
 class Photos extends Model
 {

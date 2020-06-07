@@ -37,7 +37,7 @@
             if ($order->cash !== $request->hash or $order->status == 1) return false;
 
 
-            $user = $this->model_user->find($order->user_id);
+            $user = $this->get_user()->find($order->user_id);
             $user->coins = $user->coins + $order->coins;
             $user->save();
 

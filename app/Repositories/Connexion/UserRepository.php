@@ -24,7 +24,7 @@
         public function getUserElById($id){
             return $this->startCondition()
                         ->where('id', $id)
-                        ->get();
+                        ->first();
         }
 
         /**

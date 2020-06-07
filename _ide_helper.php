@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 7.11.0 on 2020-06-05 08:19:42.
+ * Generated for Laravel 7.11.0 on 2020-06-06 09:22:56.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -15457,6 +15457,28 @@ namespace App\Facades {
         {
                         /** @var \App\Components\Declination $instance */
                         return $instance->coins($value);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function days($value)
+        {
+                        /** @var \App\Components\Declination $instance */
+                        return $instance->days($value);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function minutes($value)
+        {
+                        /** @var \App\Components\Declination $instance */
+                        return $instance->minutes($value);
         }
          
     }

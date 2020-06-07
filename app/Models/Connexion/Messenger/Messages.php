@@ -37,6 +37,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Connexion\Messenger\Messages whereViewed($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Connexion\Messenger\PhotoSend[] $attach_photos
  * @property-read int|null $attach_photos_count
+ * @property-read mixed $deleted_at_local
+ * @property-read mixed $updated_at_local
  */
 class Messages extends Model
 {

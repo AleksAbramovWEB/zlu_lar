@@ -8,11 +8,15 @@ use App\Http\Requests\Connexion\Users\ChangeUserAvatarRequest;
 use App\Http\Requests\Connexion\Users\ChangeUserGreetingRequest;
 use App\Http\Requests\Connexion\Users\UpdatePasswordUserRequest;
 use App\Http\Requests\Connexion\Users\UpdateProfileUserRequest;
+use App\Http\Requests\Connexion\Users\UpdateVipUserRequest;
 use App\Models\User;
+use App\Repositories\Connexion\Gifts\GiftsGivenRepository;
+use App\Repositories\Connexion\Gifts\GiftsRepository;
 use App\Repositories\Connexion\UserRepository;
 use App\Repositories\Geo\GeoCitiesRepository;
 use App\Repositories\Geo\GeoCountriesRepository;
 use App\Repositories\Geo\GeoRegionsRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -76,18 +80,28 @@ class UserController extends ConnexionBaseController
 
     /**
      * показ анкеты по id
-     * @param UserRepository $userRepository
-     * @param                $id
+     *
+     * @param UserRepository       $userRepository
+     * @param                      $id
+     * @param GiftsRepository      $giftsRepository
+     * @param GiftsGivenRepository $giftsGivenRepository
+     *
      * @return Response
      */
-    public function profile(UserRepository $userRepository, $id){
+    public function profile
+    (
+        UserRepository $userRepository, $id,
+        GiftsRepository $giftsRepository,
+        GiftsGivenRepository $giftsGivenRepository
+    ){
         $user = $userRepository->getUserElById($id);
+        if (empty($user)) abort(404);
+        if ($user->id == \Auth::id()) return redirect()->route('connexion.my_profile');
 
-        if ($user->isEmpty()) abort(404);
+        $gifts = $giftsRepository->getAllGifts();
+        $giftsGiven = $giftsGivenRepository->getAllGiftsForUser($user->id);
 
-        if ($user[0]->id == \Auth::id()) return redirect()->route('connexion.my_profile');
-
-        return view('connexion.users.profile', ['user' => $user[0]]);
+        return view('connexion.users.profile', compact('user', 'gifts', 'giftsGiven'));
     }
 
     /**
@@ -152,6 +166,7 @@ class UserController extends ConnexionBaseController
     /**
      * Изменение пароля
      * @param UpdatePasswordUserRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function my_profile_update_password(UpdatePasswordUserRequest $request)
     {
@@ -159,6 +174,27 @@ class UserController extends ConnexionBaseController
         $user->password = \Hash::make($request->password);
         $user->save();
         return back()->with('success', true);
+    }
+
+    /**
+     * форма для покупки vip
+     * @return \Illuminate\View\View
+     */
+    public function my_profile_edit_vip(){
+        return view('connexion.users.settings.vip');
+    }
+
+    public function my_profile_update_vip(UpdateVipUserRequest $request){
+        $vip_day = config('bz.bay_vip')[$request->vip];
+        $user = \Auth::user();
+        if ($user->vip < Carbon::now())
+                 $user->vip = Carbon::now()->addDays($vip_day);
+        else     $user->vip = $user->vip->addDays($vip_day);
+
+        $user->coins = $user->coins - $request->vip;
+        $user->save();
+
+        return back()->with('success', $vip_day);
     }
 
 
