@@ -177,7 +177,10 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         // мои провайдеры
-        App\Providers\ZluServiceProvider::class
+        App\Providers\ZluServiceProvider::class,
+        App\Providers\AdminRolesServiceProvider::class,
+        App\Providers\AdminPermissionServiceProvider::class,
+        App\Providers\ObserversServiceProvider::class,
 
     ],
 

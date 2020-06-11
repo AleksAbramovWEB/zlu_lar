@@ -28,11 +28,17 @@ use Illuminate\Support\Facades\Route;
         });
 
         // Админка
-        Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function (){
+        Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' =>['admin.permission:admins']], function (){
             Route::get('/', "HomeController@index")->name('admin');
             Route::group(['namespace' => 'Connexion', 'prefix' => 'connexion'], function (){
                 // подарки в знакоствах
-                Route::resource('/gifts', 'GiftsController')->except('show')->names('admin.connexion.gifts');
+                Route::resource('/gifts', 'GiftsController')->except('show')->names('admin.connexion.gifts')->middleware('admin.permission:gifts');
+            });
+
+            Route::group(['namespace' => 'Master', 'prefix' => 'master', 'middleware' => ['admin.role:master_manager']], function (){
+                $except = ['show', 'destroy'];
+                Route::resource('/roles', "RolesController")->except($except)->names("admin.master.roles");
+                Route::resource('/permissions', "PermissionsController")->except($except)->names("admin.master.permissions");
             });
 
         });
@@ -60,6 +66,7 @@ use Illuminate\Support\Facades\Route;
                 // дарим подарки
                 Route::group(['prefix' => 'profile/give', 'middleware' =>['auth']], function (){
                     Route::post("/gift", "GiftsForUserController@give_gifts")->name('connexion.profile.give.gift');
+                    Route::post("/vip", "GiftsForUserController@give_vip")->name('connexion.profile.give.vip');
                 });
                 // профиль по id
                 Route::get('/profile/{id}', 'UserController@profile')->name('connexion.profile');

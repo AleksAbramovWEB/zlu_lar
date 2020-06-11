@@ -1,5 +1,5 @@
 @extends('layouts.app')
-<?php  ?>
+
 @section('content')
 <div class="container">
     <div class="card border-light">
@@ -7,6 +7,5 @@
             @include('home.includes.search_form')
         </div>
     </div>
-
 </div>
 @endsection

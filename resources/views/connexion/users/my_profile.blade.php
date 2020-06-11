@@ -4,7 +4,7 @@
 {{--    {{dd($user->avatar)}}--}}
     <div class="row profile">
         <div class="col-4">
-            <div class="card border-light">
+            <div class="card border-light mb-4">
                 <div class="card-body">
                     <div class="avatars profile_avatar ">
                         <img src="{{$user->getAvatar()}}">
@@ -34,12 +34,15 @@
                     @endisset
                 </div>
             </div>
+
+            @include('connexion.users.includes.gifts_given')
+
         </div>
         <div class="col-8">
             <div class="card border-light mb-4">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-8">{{$user->name}}, {{$user->getAge()}}</div>
+                        <div class="col-8">{{$user->name}}, {{$user->getAge()}} @if($user->hasVip()) @include("connexion.users.includes.vip") @endif</div>
                         <div class="col-4 text-right">{{$user->getOnline()}}</div>
                     </div>
                     <div class="mt-2" id="greeting_view">{{$user->greeting}}</div>
@@ -86,6 +89,13 @@
         $('#remove_greeting').on('click', function () {
             $('#greeting_remove_form').submit();
         })
+
+        $(function(){
+            $('[data-toggle="popover"]').popover({
+                trigger: 'focus',
+                html: true
+            })
+        });
     </script>
 
 @endsection

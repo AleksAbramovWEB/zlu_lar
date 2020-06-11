@@ -42,7 +42,7 @@
             ];
 
             $gifts = $this->startCondition()
-                          ->select(['gift_id', 'from_user_id', 'not_visible', 'comment'])
+                          ->select(['gift_id', 'whom_user_id', 'from_user_id', 'not_visible', 'comment'])
                           ->where($where)
                           ->with($with)
                           ->orderByRaw("id DESC")

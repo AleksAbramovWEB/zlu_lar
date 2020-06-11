@@ -24,17 +24,18 @@ class UserController extends ConnexionBaseController
 {
 
 
-
-
     /**
      * Вывод анкеты зарегестрированного пользователя.
      *
+     * @param GiftsGivenRepository $giftsGivenRepository
+     *
      * @return Response
      */
-    public function my_profile()
+    public function my_profile(GiftsGivenRepository $giftsGivenRepository)
     {
         $user = \Auth::user();
-        return view('connexion.users.my_profile', compact('user'));
+        $giftsGiven = $giftsGivenRepository->getAllGiftsForUser($user->id);
+        return view('connexion.users.my_profile', compact('user', 'giftsGiven'));
     }
 
     /**

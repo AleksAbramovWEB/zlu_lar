@@ -16,18 +16,20 @@
                     <a href="#" id="write_new_message">
                         @lang('connexion/profiles.write_message')
                     </a>
-                    <a href="#" data-toggle="modal" data-target="#exampleModalLongGift">сделать подарок</a>
+                    <a href="#" data-toggle="modal" data-target="#exampleModalLongGift">{{__('connexion/profiles.make_gift')}}</a>
+                    <a href="#" data-toggle="modal" data-target="#exampleModalLongVip">{{__('connexion/profiles.make_vip')}}</a>
                 </div>
             </div>
 
             @include('connexion.users.includes.gifts_given')
+
         </div>
 
         <div class="col-8">
             <div class="card border-light mb-4">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-8">{{$user->name}}, {{$user->getAge()}}</div>
+                        <div class="col-8">{{$user->name}}, {{$user->getAge()}} @if($user->hasVip()) @include("connexion.users.includes.vip") @endif</div>
                         <div class="col-4 text-right">{{$user->getOnline()}}</div>
                     </div>
                     <div class="mt-2">{{$user->greeting}}</div>
@@ -45,6 +47,7 @@
         </div>
 
         @include('connexion.users.includes.gifts')
+        @include('connexion.users.includes.vip_give')
 
     </div>
 
@@ -67,6 +70,10 @@
             let gift = $('input[name="gift_id"]:checked').val();
             if(!!gift) $("#form_give_gift").submit()
             else $("#error_give_gift").text("{{__('connexion/profiles.not_selected_gift')}}")
+        });
+
+        $("#give_vip").on("click", function () {
+            $("#form_give_vip").submit();
         });
 
         $('textarea[name=comment]').keyup( function(){

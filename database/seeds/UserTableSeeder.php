@@ -16,7 +16,7 @@ class UserTableSeeder  extends Seeder
     protected $last_request;
 
     protected $count_users_to_db_already = 0;
-    protected $count_users_to_db_finish = 1000;
+    protected $count_users_to_db_finish = 100;
 
     /**
      * Run the database seeds.

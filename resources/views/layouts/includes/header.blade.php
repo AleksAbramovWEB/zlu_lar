@@ -19,7 +19,9 @@
                     @endif
                 @else
                     <li class="nav-item dropdown">
+                        @admin
                         <a href="{{route('admin')}}">админка</a>
+                        @endadmin
                         <a href="{{route('connexion.my_profile.edit')}}">настройки</a>
                         <a href="{{route('connexion.photos.index')}}">мои фото</a>
                         @php $newMessages = Auth::user()->getProperty('new_messages')  @endphp

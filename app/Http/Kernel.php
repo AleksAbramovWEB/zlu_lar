@@ -7,6 +7,8 @@ namespace App\Http;
 
 
 
+
+
 use App\Http\Middleware\UserOnline;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -72,6 +74,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+
         // для сообщений
         'messenger.new.contact' => \App\Http\Middleware\Connexion\Messenger\NewContact::class,
         'messenger.new.message' => \App\Http\Middleware\Connexion\Messenger\NewMessage::class,
@@ -81,7 +84,11 @@ class Kernel extends HttpKernel
 
         // фото
         'photos.owner' => \App\Http\Middleware\Connexion\Photos\OwnerPhoto::class,
-        'photos.comment_from_photo' => \App\Http\Middleware\Connexion\Photos\CommentForPhoto::class
+        'photos.comment_from_photo' => \App\Http\Middleware\Connexion\Photos\CommentForPhoto::class,
+
+        // админка
+        'admin.role' => \App\Http\Middleware\Admins\RoleMiddleware::class,
+        'admin.permission' =>  \App\Http\Middleware\Admins\PermissionMiddleware::class
     ];
 
 

@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use App\Components\MainHelper;
+use App\Models\Admins\Access\Permissions;
+use App\Models\Admins\Access\Roles;
 use App\Models\Geo\GeoCities;
 use App\Models\Geo\GeoCountries;
 use App\Models\Geo\GeoRegions;
+use App\Traits\AdminsRules;
 use App\Traits\LocalTimestamps;
 use App\Traits\PropertyContainer;
 use App\Traits\S3FileWork;
@@ -81,6 +84,10 @@ use Illuminate\Notifications\Notifiable;
  * @property-read mixed $path_s3
  * @property-read mixed $deleted_at_local
  * @property-read mixed $updated_at_local
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Admins\Access\Permissions[] $permissions
+ * @property-read int|null $permissions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Admins\Access\Roles[] $roles
+ * @property-read int|null $roles_count
  */
 class User extends Authenticatable
 {
@@ -89,6 +96,7 @@ class User extends Authenticatable
     use LocalTimestamps;
     use PropertyContainer;
     use S3FileWork;
+    use AdminsRules;
 
     public $timestamps = true;
 
@@ -164,6 +172,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo(GeoCities::class, 'city');
     }
+
+
 
 
     /**
