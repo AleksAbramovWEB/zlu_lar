@@ -23,6 +23,13 @@ class AdminRolesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        \Blade::directive('permissions', function ($permissions){
+            return "<?php if( \Auth::user()->can({$permissions}) ): ?>";
+        });
+
+        \Blade::directive('endpermissions', function (){
+            return "<?php endif; ?>";
+        });
 
         \Blade::directive('admin', function (){
             return "<?php if( \Auth::user()->can('admins') ): ?>";

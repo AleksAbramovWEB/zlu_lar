@@ -58,7 +58,7 @@ class PhotosController extends Controller
      */
     public function store(StorePhotoRequest $request, Photos $photos)
     {
-        $path = $this->S3putImgFile($request, 'photo', 'connexion/photos');
+        $path = $this->S3putFile($request, 'photo', 'connexion/photos');
         $photos->create([
             'user_id' => \Auth::id(),
             'path' => $path,

@@ -1,3 +1,5 @@
+@stack('script_files')
+
 <script type="text/javascript">
 
     let csrf_token  = $("meta[name='csrf-token']").attr('content');
@@ -14,7 +16,5 @@
         })
     @endif
 
-
-
-
+    @stack('script')
 </script>

@@ -34,14 +34,19 @@ use Illuminate\Support\Facades\Route;
                 // подарки в знакоствах
                 Route::resource('/gifts', 'GiftsController')->except('show')->names('admin.connexion.gifts')->middleware('admin.permission:gifts');
             });
-
+            // выдача и создание прав
             Route::group(['namespace' => 'Master', 'prefix' => 'master', 'middleware' => ['admin.role:master_manager']], function (){
                 $except = ['show', 'destroy'];
                 Route::resource('/roles', "RolesController")->except($except)->names("admin.master.roles");
                 Route::resource('/permissions', "PermissionsController")->except($except)->names("admin.master.permissions");
             });
-
+            // видео
+            Route::group(['namespace' => 'Video', 'prefix' => 'video', 'middleware' =>['admin.permission:video']], function (){
+                Route::resource('/films', 'VideoController')->names("admin.video");
+                Route::resource('/categories', 'CategoriesVideoController')->except('show')->names("admin.video.categories");
+            });
         });
+
         // знакомства
         Route::group(['namespace' => 'Connexion', 'prefix' => 'connexion'], function (){
 

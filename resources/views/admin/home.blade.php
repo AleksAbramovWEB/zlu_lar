@@ -24,7 +24,21 @@
                 </div>
             </div>
         </div>
-        <div class="col"></div>
+        <div class="col">
+            @permissions('video')
+            <div class="card border-dark mb-4">
+                <div class="card-body">
+                    <h5 class="text-center">Видео</h5>
+                    <ul>
+                        <li><a href="{{route("admin.video.index")}}">список видео</a></li>
+                        <li><a href="{{route("admin.video.create")}}">добавить видео</a></li>
+                        <li><a href="{{route("admin.video.categories.index")}}">список категорий</a></li>
+                        <li><a href="{{route("admin.video.categories.create")}}">добавить категорию</a></li>
+                    </ul>
+                </div>
+            </div>
+            @endpermissions
+        </div>
         <div class="col"></div>
         <div class="col"></div>
     </div>

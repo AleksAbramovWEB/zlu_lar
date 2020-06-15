@@ -45,6 +45,7 @@
       <data directive="@endif" />
       <data directive="@endisset" />
       <data directive="@endlang" />
+      <data directive="@endpermissions" />
       <data directive="@endphp" />
       <data directive="@endprepend" />
       <data directive="@endproduction" />
@@ -75,6 +76,7 @@
       <data directive="@method" injection="true" prefix="&lt;?php echo method_field(" suffix="); ?&gt;" />
       <data directive="@overwrite" />
       <data directive="@parent" />
+      <data directive="@permissions" injection="true" prefix="$permissions" />
       <data directive="@php" injection="true" prefix="&lt;?php (" suffix="); ?&gt;" />
       <data directive="@prepend" injection="true" prefix="&lt;?php $__env-&gt;startPrepend(" suffix="); ?&gt;" />
       <data directive="@production" />

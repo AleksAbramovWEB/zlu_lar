@@ -23,11 +23,14 @@
          * @param string  $path путь для сохранения
          * @return false|string путь и имя файла
          */
-        private function S3putImgFile(Request $request, string $name, string $path){
+        private function S3putFile(Request $request, string $name, string $path){
             $path .= "/".Carbon::now()->format('m-Y');
             $address = $request->file($name)->store($path , 's3');
             return $address;
         }
+
+
+
 
         private function S3removeFile(string $path)
         {

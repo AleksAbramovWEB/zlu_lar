@@ -37,7 +37,7 @@ class PhotosController extends MessengerBaseController
      */
     public function store(PhotoSaveMessengerRequest $request, Photos $photos)
     {
-        $path = $this->S3putImgFile($request, 'photo', 'connexion/messenger');
+        $path = $this->S3putFile($request, 'photo', 'connexion/messenger');
         $photos->create([
             'user_id' => \Auth::id(),
             'path' => $path
