@@ -19,6 +19,7 @@
                     @endif
                 @else
                     <li class="nav-item dropdown">
+                        <a href="{{route('video')}}">Видео</a>
                         @admin
                         <a href="{{route('admin')}}">админка</a>
                         @endadmin

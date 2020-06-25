@@ -39,8 +39,16 @@
             </div>
             @endpermissions
         </div>
-        <div class="col"></div>
-        <div class="col"></div>
+        <div class="col">
+
+        </div>
+        <div class="col">
+            <div class="card border-dark mb-4">
+                <div class="card-body">
+                    @include('admin.video.includes.stats_video', ['stats' => $stats_video])
+                </div>
+            </div>
+        </div>
     </div>
 
 @endsection

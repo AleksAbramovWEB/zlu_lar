@@ -50,6 +50,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Video\VideoCategoryUnite[] $to_categories
  * @property-read int|null $to_categories_count
+ * @property int $views
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Video\Video whereViews($value)
  */
 class Video extends Model
 {
@@ -67,7 +69,8 @@ class Video extends Model
         'title_en',
         'description_ru',
         'description_en',
-        'published'
+        'published',
+        'views'
     ];
 
 

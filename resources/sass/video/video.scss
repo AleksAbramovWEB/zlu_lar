@@ -1,0 +1,30 @@
+
+// слфйдер скатегориями
+.categories {
+    img {
+        min-width:  200px;
+        max-width:  200px;
+        min-height: 150px;
+        max-height: 150px;
+    }
+}
+
+.video {
+    #like {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+    .no_like {fill: white;}
+    .no_like:hover {fill: #d1d1d1;}
+
+    .is_like{fill: red;}
+    .is_like:hover{fill: #aa0000;}
+
+    .views_eye {
+        width: 23px;
+        height: 23px;
+        background: url("/img/svg/eye.svg") no-repeat;
+        background-size: 100% 100%;
+    }
+}

@@ -168,6 +168,14 @@
                                 <a href="{{route("admin.video.index")}}">список видео</a>
                             </div>
                         </div>
+                        <br>
+                        <div class="card border-dark">
+                            <div class="card-body text-center">
+                                <a href="{{route('admin.video.create')}}" class="text-center w-100">
+                                    Добавить новое
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -114,10 +114,20 @@ use Illuminate\Support\Facades\Route;
                 });
             });
         });
+        // видео
+         Route::group(['prefix' => 'video','namespace' => 'video'], function (){
+             Route::get('/', "VideoController@index")->name('video');
+             Route::get('/category/{slug}', "VideoController@category")->name('video.category');
+             Route::get('/library/{id}', "VideoController@library")->name('video.library');
+             Route::post('/views/{id}', "VideoController@views")->name('video.views');
+             Route::get('/likes', "VideoController@my_video_likes")->name('video.likes')->middleware('auth');
+             Route::post('/like/{id}', "VideoController@like")->name('video.like')->middleware('auth');
+         });
     };
 
 
-    Route::group(['domain' => '{locale}.bdsmzlu.club', 'middleware' =>['user.alert'],], $mainGlobalGroup);
+    Route::group(['domain' => 'ru.bdsmzlu.club', 'middleware' =>['user.alert'],], $mainGlobalGroup);
+    Route::group(['domain' => 'en.bdsmzlu.club', 'middleware' =>['user.alert'],], $mainGlobalGroup);
 
     Route::group(['domain' => 'bdsmzlu.club', 'middleware' =>['user.alert'],], $mainGlobalGroup);
 

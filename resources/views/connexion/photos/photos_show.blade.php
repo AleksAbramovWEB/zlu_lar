@@ -97,7 +97,6 @@
             });
 
             $('#like').on('click', function () {
-                console.log('ddd')
                 $.ajax({
                     url: '{{route('connexion.photos.like')}}',
                     type: 'POST',

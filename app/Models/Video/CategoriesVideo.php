@@ -37,6 +37,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Video\CategoriesVideo onlyTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Video\CategoriesVideo withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Video\CategoriesVideo withoutTrashed()
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Video\VideoCategoryUnite[] $to_videos
+ * @property-read int|null $to_videos_count
  */
 class CategoriesVideo extends Model
 {
@@ -46,4 +48,14 @@ class CategoriesVideo extends Model
     protected $table = 'video_categories';
 
     protected $fillable = ['slug', 'title_ru', 'title_en', 'published'];
+
+    /**
+     ********************** СВЯЗИ ***************************************************************************
+     */
+
+
+    public function to_videos()
+    {
+        return $this->hasMany(VideoCategoryUnite::class,'category_id' ,'id');
+    }
 }

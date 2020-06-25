@@ -3,11 +3,44 @@
 
     <div class="card border-dark mb-4">
         <div class="card-body">
-            <a href="{{route("admin.video.create")}}">
-                <div class="col-md-8 offset-md-2">
-                    <button type="submit" class="font-weight-bold btn btn-light btn-block">ДОБАВИТЬ ВИДЕО</button>
+
+            <div class="row">
+                <div class="col">
+                    @include('admin.video.includes.stats_video', ['stats' => $stats])
                 </div>
-            </a>
+                <div class="col d-flex flex-column justify-content-center align-items-center">
+                    <h4>Сортировать по:</h4>
+                    @php
+                        $rez = function ($column) use ($request){
+                            $columnRequest = $request->input('column');
+                            if ($column === 'created_at' AND empty($request->input('direction')))
+                                $direction = 'desk';
+                            elseif ($column === $columnRequest)
+                                    $direction = ($request->input('direction') === 'desk') ? 'asc' : 'desk' ;
+                            else    $direction = 'asc';
+                            return [
+                                'column' => $column,
+                                'direction' => $direction,
+                                'page' => $request->input('page')
+                            ];
+                        }
+                    @endphp
+                    <a href="{{route("admin.video.index", $rez('created_at'))}}">дате добавления</a>
+                    <a href="{{route("admin.video.index", $rez('updated_at'))}}">дате изменения</a>
+                    <a href="{{route("admin.video.index", $rez('deleted_at'))}}">дате удаления</a>
+                    <a href="{{route("admin.video.index", $rez('published'))}}">опубликованности</a>
+                    <a href="{{route("admin.video.index", $rez('views'))}}">количеству просмотров</a>
+                    <a href="{{route("admin.video.index", $rez('likes'))}}">количеству лайков</a>
+                    <div class="w-100 mt-3">{{$films->links('blades.my_paginator_simple')}}</div>
+                </div>
+
+                <div class="col d-flex flex-column justify-content-center align-items-center">
+                    <a href="{{route("admin")}}">На главную админки</a>
+                    <a href="{{route("admin.video.create")}}">Добавить видео</a>
+                    <a href="{{route("admin.video.categories.index")}}">Список категорий</a>
+                    <a href="{{route("admin.video.categories.create")}}">Добавить категорию</a>
+                </div>
+            </div>
         </div>
     </div>
 

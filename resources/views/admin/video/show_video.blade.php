@@ -56,8 +56,10 @@
                     <div class="row justify-content-center">
                         <div class="col-md-12">
                             <div class="card border-dark">
-                                <div class="card-body">
-                                    ID: {{$video->id}}
+                                <div class="card-body d-flex justify-content-around flex-wrap">
+                                    <span>ID: {{$video->id}}</span>
+                                    <span>VIEWS: {{$video->views}}</span>
+                                    <span>LIKES: {{$video->likes}}</span>
                                 </div>
                             </div>
                         </div>

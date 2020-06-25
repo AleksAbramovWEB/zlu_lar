@@ -24,18 +24,18 @@
 - cоздать посредника `php artisan make:middleware Admins/PermissionMiddleware`
 - создать отпровителя email `php artisan make:mail FeedbackEmail`
 - cоздать request `php artisan make:request Admin/Video/EditVideoRequest`
-- создать контроллер `php artisan make:controller Connexion/Users/GiftsForUserController`
+- создать контроллер `php artisan make:controller Video/VideoController`
 - cоздать ресурсный контроллер:`php artisan make:controller Admin/Video/CategoriesVideoController --resource --model=Models/Video/CategoriesVideo`
-- Создать  модель: `php artisan make:model Models/Video/VideoCategoryUnite`
+- Создать  модель: `php artisan make:model Models/Video/VideoLikes`
 - Создать исключение `php artisan make:exception Kassa/CurrencyNotFoundException`
 - Cоздать сервис провайдера `php artisan make:provider ObserversServiceProvider`
-- создать обсервер: `php artisan make:observer Admins/Access/PermissionsObserver --model=Models/Admins/Access/Permissions`
+- создать обсервер: `php artisan make:observer Video/CategoriesVideoObserver --model=Models/Video/CategoriesVideo`
 
 
 ####МИГРАЦИИ
 - Создать миграцию и модель: `php artisan make:model Models/BlogCategory -m`
 - Создать миграцию:
-- `php artisan make:migration create_video_category_unite_table`
+- `php artisan make:migration create_video_likes_table`
 - php artisan make:`migration create_users_table --create=users`
 - php artisan make:`migration add_votes_to_users_table --table=users`
 - Запуск миграции: `php artisan migrate`

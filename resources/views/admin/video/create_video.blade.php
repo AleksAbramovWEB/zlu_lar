@@ -91,7 +91,8 @@
                                                class="custom-control-input"
                                                value="1"
                                                name="category_{{$category->id}}"
-                                               id="category_{{$category->id}}">
+                                               id="category_{{$category->id}}"
+                                               {{(old("category_{$category->id}")) ? "checked" : ""}}>
                                         <label class="custom-control-label" for="category_{{$category->id}}">{{$category->title}}</label>
                                     </div>
                                 @endforeach
@@ -104,6 +105,9 @@
                             <div class="col"></div>
                             <div class="col"></div>
                         @endif
+                    </div>
+                    <div class="text-right mt-1">
+                        <a href="{{route("admin.video.categories.create")}}">добавить категорию</a>
                     </div>
                 </div>
 

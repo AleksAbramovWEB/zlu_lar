@@ -36,7 +36,7 @@ class LangMiddleware
         $this->languages =  config('app.locales');
         $this->langDefault = config('app.locale');
 
-        $locale = $request->route('locale');
+        $locale = explode('.', $request->getHost())[0] ;
 
         // при посещении с поддоменом
         if (in_array($locale, $this->languages)){

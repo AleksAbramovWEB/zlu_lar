@@ -18,15 +18,17 @@ class VideoController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @param VideoRepository      $videoRepository
-     * @param CategoriesRepository $categoriesRepository
+     *
+     * @param VideoRepository $videoRepository
+     * @param Request         $request
      * @return void
      */
-    public function index(VideoRepository $videoRepository)
+    public function index(VideoRepository $videoRepository, Request $request)
     {
-        $films = $videoRepository->getVideoForAdminList();
-
-        return view('admin.video.index_video', compact('films'));
+        $films = $videoRepository->getVideoForAdminList($request);
+        $films->appends($request->toArray())->links();
+        $stats = $videoRepository->totalStats();
+        return view('admin.video.index_video', compact('films', 'stats', 'request'));
     }
 
     /**

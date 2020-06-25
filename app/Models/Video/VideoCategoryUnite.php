@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Video\VideoCategoryUnite whereCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Video\VideoCategoryUnite whereVideoId($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\Video\Video|null $to_video
  */
 class VideoCategoryUnite extends Model
 {
@@ -30,4 +31,11 @@ class VideoCategoryUnite extends Model
     {
         return$this->hasOne(CategoriesVideo::class,'id' ,'category_id');
     }
+
+    public function to_video()
+    {
+        return$this->hasOne(Video::class,'id' ,'video_id');
+    }
+
+
 }

@@ -1,14 +1,4 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
 
-// Variables
-@import 'variables';
-
-// примеси
-//@import "mixins";
-
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
 
 // моя тема для будстрап
 @import "main";
@@ -24,3 +14,5 @@
 @import "connexion/photos/photos_show";
 @import "connexion/photos/photos_edit";
 @import "connexion/kasses";
+
+@import "video/video";
