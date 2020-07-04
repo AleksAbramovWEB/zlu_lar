@@ -1,4 +1,10 @@
 @extends('layouts.app')
+
+@push('css')
+    <link href="{{ asset('css/owl/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/owl/owl.theme.default.min.css') }}" rel="stylesheet">
+@endpush
+
 @section('content')
     @php /** @var App\Models\User $user */ @endphp
 {{--    {{dd($user->avatar)}}--}}
@@ -39,6 +45,7 @@
 
         </div>
         <div class="col-8">
+
             <div class="card border-light mb-4">
                 <div class="card-body">
                     <div class="row">
@@ -68,7 +75,8 @@
                     </div>
                 </div>
             </div>
-            <div class="card border-light">
+
+            <div class="card border-light mb-4">
                 <div class="card-body">
                     @foreach($user->getInfo() AS $key => $val)
                         <div class="m-2">
@@ -77,25 +85,53 @@
                     @endforeach
                 </div>
             </div>
+
+            @include('connexion.users.includes.photos')
+
+            @include('connexion.users.includes.videos')
+
+
         </div>
     </div>
 
     <script type="text/javascript">
-        $('#change_greeting').on('click', function () {
-            $('#greeting_form').removeClass('d-none');
-            $('#hrefs_greeting').addClass('d-none')
-            $('#greeting_view').addClass('d-none')
-        })
-        $('#remove_greeting').on('click', function () {
-            $('#greeting_remove_form').submit();
-        })
 
-        $(function(){
-            $('[data-toggle="popover"]').popover({
-                trigger: 'focus',
-                html: true
-            })
-        });
     </script>
 
 @endsection
+
+
+
+
+@push('script_files')
+    <script src="{{asset('js/owl/owl.carousel.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/imagesLoaded/imagesloaded.pkgd.min.js')}}" type="text/javascript"></script>
+@endpush
+{{--<script>--}}
+@push('script')
+    $('#change_greeting').on('click', function () {
+        $('#greeting_form').removeClass('d-none');
+        $('#hrefs_greeting').addClass('d-none')
+        $('#greeting_view').addClass('d-none')
+    })
+    $('#remove_greeting').on('click', function () {
+         $('#greeting_remove_form').submit();
+    })
+
+    $(function(){
+        $('[data-toggle="popover"]').popover({
+            trigger: 'focus',
+            html: true
+        })
+    });
+
+    let carousel = $('.owl-carousel');
+        carousel.imagesLoaded(function () {
+            carousel.owlCarousel({
+            margin:5,
+            autoWidth:true,
+            loop:true,
+            animateOut: 'fadeOut'
+        });
+    });
+@endpush

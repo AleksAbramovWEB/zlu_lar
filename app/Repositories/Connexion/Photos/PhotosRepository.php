@@ -31,6 +31,22 @@
             return $photos;
         }
 
+        /**
+         * получить фото для пользователя
+         * @param $user_id
+         * @return Collection
+         */
+        public function getUserPhotosById($user_id){
+
+            $photos = $this->startCondition()
+                           ->where('user_id', $user_id)
+                           ->orderBy('id', 'DESC')
+                           ->paginate(30);
+            return $photos;
+        }
+
+
+
         public function getPhotoById($id){
             $photo = $this->startCondition()
                           ->where('id', $id)
@@ -50,6 +66,17 @@
                          ->exists();
             return $bool;
 
+        }
+
+        public function getPhotoByUserId($user_id)
+        {
+            $photos = $this->startCondition()
+                           ->select(['id', 'path'])
+                           ->where('user_id', $user_id)
+                           ->orderBy('id', 'DESC')
+                           ->limit(20)
+                           ->get();
+            return $photos;
         }
 
 

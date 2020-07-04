@@ -343,6 +343,11 @@ a:hover {
   cursor: pointer;
 }
 
+.news .avatars {
+  width: 110px;
+  height: 150px;
+}
+
 .categories img {
   min-width: 200px;
   max-width: 200px;

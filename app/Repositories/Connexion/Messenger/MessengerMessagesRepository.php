@@ -31,6 +31,8 @@
             $result =    $this->startCondition()
                          ->where([['contact_from', $contact1], ['contact_to', $contact2]])
                          ->orWhere([['contact_from', $contact2], ['contact_to', $contact1]])
+                         ->orWhere([['contact_from', $contact1], ['contact_to', NULL]])
+                         ->orWhere([['contact_from', NULL], ['contact_to', $contact1]])
                          ->with([
                              'attach_photos' => function ($query){
                                  $query->with([

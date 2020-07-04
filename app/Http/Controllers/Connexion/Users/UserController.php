@@ -10,12 +10,15 @@ use App\Http\Requests\Connexion\Users\UpdatePasswordUserRequest;
 use App\Http\Requests\Connexion\Users\UpdateProfileUserRequest;
 use App\Http\Requests\Connexion\Users\UpdateVipUserRequest;
 use App\Models\User;
+use App\Models\Video\VideoLikes;
 use App\Repositories\Connexion\Gifts\GiftsGivenRepository;
 use App\Repositories\Connexion\Gifts\GiftsRepository;
+use App\Repositories\Connexion\Photos\PhotosRepository;
 use App\Repositories\Connexion\UserRepository;
 use App\Repositories\Geo\GeoCitiesRepository;
 use App\Repositories\Geo\GeoCountriesRepository;
 use App\Repositories\Geo\GeoRegionsRepository;
+use App\Repositories\Video\VideoRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -28,14 +31,21 @@ class UserController extends ConnexionBaseController
      * Вывод анкеты зарегестрированного пользователя.
      *
      * @param GiftsGivenRepository $giftsGivenRepository
-     *
+     * @param PhotosRepository     $photosRepository
+     * @param VideoRepository      $videoRepository
      * @return Response
      */
-    public function my_profile(GiftsGivenRepository $giftsGivenRepository)
+    public function my_profile(
+        GiftsGivenRepository $giftsGivenRepository,
+        PhotosRepository $photosRepository,
+        VideoRepository $videoRepository
+    )
     {
         $user = \Auth::user();
         $giftsGiven = $giftsGivenRepository->getAllGiftsForUser($user->id);
-        return view('connexion.users.my_profile', compact('user', 'giftsGiven'));
+        $photos = $photosRepository->getPhotoByUserId($user->id);
+        $videos = $videoRepository->getLikesVideoForProfile($user->id);
+        return view('connexion.users.my_profile', compact('user', 'giftsGiven', 'photos', 'videos'));
     }
 
     /**
@@ -86,23 +96,30 @@ class UserController extends ConnexionBaseController
      * @param                      $id
      * @param GiftsRepository      $giftsRepository
      * @param GiftsGivenRepository $giftsGivenRepository
-     *
+     * @param PhotosRepository     $photosRepository
+     * @param VideoRepository      $videoRepository
      * @return Response
      */
     public function profile
     (
         UserRepository $userRepository, $id,
         GiftsRepository $giftsRepository,
-        GiftsGivenRepository $giftsGivenRepository
+        GiftsGivenRepository $giftsGivenRepository,
+        PhotosRepository $photosRepository,
+        VideoRepository $videoRepository
     ){
         $user = $userRepository->getUserElById($id);
         if (empty($user)) abort(404);
         if ($user->id == \Auth::id()) return redirect()->route('connexion.my_profile');
 
-        $gifts = $giftsRepository->getAllGifts();
-        $giftsGiven = $giftsGivenRepository->getAllGiftsForUser($user->id);
+        \News::addNews('profile_views', $id);
 
-        return view('connexion.users.profile', compact('user', 'gifts', 'giftsGiven'));
+        $gifts = $giftsRepository->getAllGifts();
+        $giftsGiven = $giftsGivenRepository->getAllGiftsForUser($id);
+        $photos = $photosRepository->getPhotoByUserId($id);
+        $videos = $videoRepository->getLikesVideoForProfile($id);
+
+        return view('connexion.users.profile', compact('user', 'gifts', 'giftsGiven', 'photos', 'videos'));
     }
 
     /**

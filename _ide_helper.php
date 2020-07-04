@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 7.11.0 on 2020-06-06 09:22:56.
+ * Generated for Laravel 7.11.0 on 2020-07-04 05:52:06.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -15395,6 +15395,61 @@ namespace App\Facades {
                         /** @var \App\Components\MainHelper $instance */
                         return $instance->getFileS3($path);
         }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getLocalDate($timestamp)
+        {
+                        /** @var \App\Components\MainHelper $instance */
+                        return $instance->getLocalDate($timestamp);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getCreatedAtLocalAttribute()
+        {
+                        /** @var \App\Components\MainHelper $instance */
+                        return $instance->getCreatedAtLocalAttribute();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getDeletedAtLocalAttribute()
+        {
+                        /** @var \App\Components\MainHelper $instance */
+                        return $instance->getDeletedAtLocalAttribute();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getUpdatedAtLocalAttribute()
+        {
+                        /** @var \App\Components\MainHelper $instance */
+                        return $instance->getUpdatedAtLocalAttribute();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getLastTimeLocalAttribute()
+        {
+                        /** @var \App\Components\MainHelper $instance */
+                        return $instance->getLastTimeLocalAttribute();
+        }
          
     }
 
@@ -15479,6 +15534,36 @@ namespace App\Facades {
         {
                         /** @var \App\Components\Declination $instance */
                         return $instance->minutes($value);
+        }
+         
+    }
+
+    /**
+     * 
+     *
+     */ 
+    class NewsFacade {
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function addNews($type, $data)
+        {
+                        /** @var \App\Components\News\News $instance */
+                        return $instance->addNews($type, $data);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getNews($user_id = null)
+        {
+                        /** @var \App\Components\News\News $instance */
+                        return $instance->getNews($user_id);
         }
          
     }
@@ -19308,6 +19393,8 @@ namespace  {
     class MainHelper extends \App\Facades\MainHelperFacade {}
 
     class Declination extends \App\Facades\DeclinationFacade {}
+
+    class News extends \App\Facades\NewsFacade {}
 
     class Debugbar extends \Barryvdh\Debugbar\Facade {}
 

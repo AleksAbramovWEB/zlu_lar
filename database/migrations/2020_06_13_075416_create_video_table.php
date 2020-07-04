@@ -21,6 +21,7 @@ class CreateVideoTable extends Migration
             $table->string('title_en');
             $table->text('description_ru');
             $table->text('description_en');
+            $table->bigInteger('views')->unsigned()->default(0);
             $table->boolean('published')->default(1);
             $table->timestamps();
             $table->softDeletes();

@@ -158,6 +158,20 @@
             return $films;
         }
 
+        public function getLikesVideoForProfile($user_id){
+            $films =  $this->startCondition()
+                           ->select(['video.id', 'video.path_img', "video.title_{$this->local} as title"])
+                           ->join('video_likes', 'video_likes.video_id', '=', 'video.id')
+                           ->where([
+                               ['video.published' , '1'],
+                               ['video_likes.user_id', $user_id]
+                           ])->orderBy('video_likes.id', "DESC")
+                             ->limit(20)
+                             ->get();
+
+            return $films;
+        }
+
 
 
 

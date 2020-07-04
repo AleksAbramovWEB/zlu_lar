@@ -50,6 +50,11 @@ use Illuminate\Support\Facades\Route;
         // знакомства
         Route::group(['namespace' => 'Connexion', 'prefix' => 'connexion'], function (){
 
+            //новости
+            Route::group(['namespace' => 'News', 'prefix' => 'news'], function (){
+                Route::get('/', 'NewsController@index')->name('connexion.news');
+            });
+
             Route::group(['namespace' => 'Users'], function (){
                 // мой профиль
                 Route::group(['prefix' => 'my_profile', 'middleware' =>['auth']], function (){
@@ -108,6 +113,7 @@ use Illuminate\Support\Facades\Route;
             Route::group(['namespace' => 'photos'], function (){
                 Route::resource('/photos', 'PhotosController')->names('connexion.photos');
                 Route::group(['prefix' => 'photos'], function (){
+                    Route::get('/user/{id}', 'PhotosController@index_public')->name('connexion.photos.user');
                     $method = ['store', 'destroy'];
                     Route::resource('/comment', 'PhotosCommentController')->only($method)->names('connexion.photos.comment');
                     Route::post('/like', 'PhotosLikesController@like')->name('connexion.photos.like');
@@ -121,6 +127,7 @@ use Illuminate\Support\Facades\Route;
              Route::get('/library/{id}', "VideoController@library")->name('video.library');
              Route::post('/views/{id}', "VideoController@views")->name('video.views');
              Route::get('/likes', "VideoController@my_video_likes")->name('video.likes')->middleware('auth');
+             Route::get('/likes/user/{id}', "VideoController@user_video_likes")->name('video.likes.user');
              Route::post('/like/{id}', "VideoController@like")->name('video.like')->middleware('auth');
          });
     };

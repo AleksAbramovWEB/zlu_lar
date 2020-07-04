@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Video;
 use App\Http\Controllers\Controller;
 use App\Models\Video\Video;
 use App\Models\Video\VideoLikes;
+use App\Repositories\Connexion\UserRepository;
 use App\Repositories\Video\CategoriesRepository;
 use App\Repositories\Video\VideoLikesRepository;
 use App\Repositories\Video\VideoRepository;
@@ -64,6 +65,18 @@ class VideoController extends Controller
         return view('video.my_likes_video', compact('likes'));
     }
 
+    public function user_video_likes(
+        VideoLikesRepository $likesRepository, $id,
+        UserRepository $userRepository
+    ){
+        if ($id == \Auth::id())  return redirect()->route('video.likes');
+        $likes = $likesRepository->getLikesWithVideo($id);
+        if ($likes->isEmpty()) abort(404);
+        $name = $userRepository->getNameById($id);
+        if (empty($name)) abort(404);
+        return view('video.user_video_likes', compact('likes', 'name'));
+    }
+
     public function like(VideoLikes $videoLikes, VideoLikesRepository $likesRepository, $id)
     {
         $like = $likesRepository->getMyLike($id);
@@ -77,7 +90,6 @@ class VideoController extends Controller
         $countLikes['count'] = $likesRepository->getCountLikeForVideo($id);
 
         return response()->json($countLikes);
-
     }
 
 }

@@ -47,6 +47,8 @@ class GiftsForUserController extends ConnexionBaseController
         $user_from->coins = $user_from->coins - $request->vip;
         $user_from->save();
 
+        \News::addNews('vip_given', ['user_id' => $user_whom->id, 'days' => $vip_day]);
+
         return back();
     }
 

@@ -9,6 +9,7 @@ use App\Models\Connexion\Photos\Photos;
 use App\Repositories\Connexion\Photos\PhotoCommentsRepository;
 use App\Repositories\Connexion\Photos\PhotoLikesRepository;
 use App\Repositories\Connexion\Photos\PhotosRepository;
+use App\Repositories\Connexion\UserRepository;
 use App\Traits\S3FileWork;
 use Illuminate\Http\Request;
 
@@ -36,6 +37,18 @@ class PhotosController extends Controller
     {
         $photos = $photosRepository->getAuthUserPhotos();
         return view('connexion.photos.photos_index', compact('photos'));
+    }
+
+    public function index_public(
+        PhotosRepository $photosRepository, $id,
+        UserRepository $userRepository
+    ){
+        if ($id == \Auth::id()) return redirect()->route('connexion.photos.index');
+        $photos = $photosRepository->getUserPhotosById($id);
+        if ($photos->isEmpty()) abort(404);
+        $name = $userRepository->getNameById($id);
+        if (empty($name)) abort(404);
+        return view('connexion.photos.photos_index_public', compact('photos', 'name'));
     }
 
     /**

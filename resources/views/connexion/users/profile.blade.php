@@ -1,4 +1,10 @@
 @extends('layouts.app')
+
+@push('css')
+    <link href="{{ asset('css/owl/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/owl/owl.theme.default.min.css') }}" rel="stylesheet">
+@endpush
+
 @section('content')
     @php /** @var App\Models\User $user */ @endphp
     <div class="row profile">
@@ -35,7 +41,8 @@
                     <div class="mt-2">{{$user->greeting}}</div>
                 </div>
             </div>
-            <div class="card border-light">
+
+            <div class="card border-light mb-4">
                 <div class="card-body">
                     @foreach($user->getInfo() AS $key => $val)
                         <div class="m-2">
@@ -44,6 +51,11 @@
                     @endforeach
                 </div>
             </div>
+
+            @include('connexion.users.includes.photos')
+
+            @include('connexion.users.includes.videos')
+
         </div>
 
         @include('connexion.users.includes.gifts')
@@ -62,32 +74,54 @@
 
     <script type="text/javascript">
 
-        $('#write_new_message').on('click', function () {
-            $('#write_new_message_form').submit();
-        });
 
-        $("#give_gift").on("click", function () {
-            let gift = $('input[name="gift_id"]:checked').val();
-            if(!!gift) $("#form_give_gift").submit()
-            else $("#error_give_gift").text("{{__('connexion/profiles.not_selected_gift')}}")
-        });
-
-        $("#give_vip").on("click", function () {
-            $("#form_give_vip").submit();
-        });
-
-        $('textarea[name=comment]').keyup( function(){
-            let $this = $(this);
-            if($this.val().length > 190)
-                $this.val($this.val().substr(0, 190));
-        });
-        $(function(){
-            $('[data-toggle="popover"]').popover({
-                trigger: 'focus',
-                html: true
-            })
-
-        });
 
     </script>
 @endsection
+
+@push('script_files')
+    <script src="{{asset('js/owl/owl.carousel.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/imagesLoaded/imagesloaded.pkgd.min.js')}}" type="text/javascript"></script>
+@endpush
+
+{{--<script>--}}
+@push('script')
+
+    $('#write_new_message').on('click', function () {
+        $('#write_new_message_form').submit();
+    });
+
+    $("#give_gift").on("click", function () {
+        let gift = $('input[name="gift_id"]:checked').val();
+        if(!!gift) $("#form_give_gift").submit()
+        else $("#error_give_gift").text("{{__('connexion/profiles.not_selected_gift')}}")
+    });
+
+    $("#give_vip").on("click", function () {
+        $("#form_give_vip").submit();
+    });
+
+    $('textarea[name=comment]').keyup( function(){
+        let $this = $(this);
+        if($this.val().length > 190)
+            $this.val($this.val().substr(0, 190));
+    });
+    $(function(){
+        $('[data-toggle="popover"]').popover({
+            trigger: 'focus',
+            html: true
+        })
+
+    });
+
+    let carousel = $('.owl-carousel');
+    carousel.imagesLoaded(function () {
+        carousel.owlCarousel({
+            margin:5,
+            autoWidth:true,
+            loop:true,
+            animateOut: 'fadeOut'
+        });
+    });
+
+@endpush

@@ -22,6 +22,10 @@ class ZluServiceProvider extends ServiceProvider
         \App::bind('Declination', function(){
             return new \App\Components\Declination;
         });
+
+        \App::bind('News', function(){
+            return new \App\Components\News\News;
+        });
     }
 
     /**

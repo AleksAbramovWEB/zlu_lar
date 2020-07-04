@@ -76,6 +76,18 @@
             return $users;
         }
 
+        public function getNameById($id){
+            $users = $this->startCondition()
+                          ->select('name')
+                          ->where('id', $id)
+                          ->toBase()
+                          ->first();
+
+            return $users->name;
+
+        }
+
+
 
 
 

@@ -6,8 +6,11 @@
 
 
 
+    use App\Traits\LocalTimestamps;
+
     class MainHelper
     {
+        use LocalTimestamps;
 
         /**
          * Для валидии форм bootstrap
@@ -77,6 +80,17 @@
 
             return  (string)$request->getUri();
 
+        }
+
+        public function getLocalDate($timestamp){
+            $timestamp = \Carbon\Carbon::createFromDate($timestamp);
+            $timestamp->timezone($this->getLocalTimeZone());
+            return $this->returnTimeFormat(
+                $timestamp,
+                1, __('connexion/messenger.just'),
+                10, __('connexion/messenger.minutes_ago')
+
+            );
         }
 
 

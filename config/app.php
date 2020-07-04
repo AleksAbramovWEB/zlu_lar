@@ -234,7 +234,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'MainHelper' => App\Facades\MainHelperFacade::class,
-        'Declination' => App\Facades\DeclinationFacade::class
+        'Declination' => App\Facades\DeclinationFacade::class,
+        'News' => App\Facades\NewsFacade::class
 
     ],
 
